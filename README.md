@@ -1,78 +1,98 @@
 # Circuito Kitsune
 
-Tienda académica de máscaras urbanas cyber-folk para los distritos nocturnos del **Circuito Kitsune**. Cada máscara funciona como una identidad: define por qué corredores podés moverte y a qué horas. La sección **Transmisiones** es el blog del circuito (guías, reportes y protocolos para nuevos usuarios).
+Tienda ficticia académica de máscaras japonesas cyberpunk. Cada máscara representa una identidad nocturna que abre un distrito de la ciudad bajo vigilancia. La sección **Transmisiones** es el blog del circuito (guías, sistemas, novedades).
 
 Trabajo práctico — Primer Parcial — *Portales y Comercio Electrónico*.
 
+> **Documentación clave**:
+> - `docs/DESIGN_BRIEF.md` — spec absoluta cerrada (2346 líneas, 80 reglas numeradas, 5 páginas, 3 anti-patterns documentados).
+> - `docs/PROGRESS.md` — estado real de implementación + desviaciones del brief + acceptance verificado.
+> - `docs/NEXT_SESSION_PROMPT.md` — handoff para sesiones nuevas.
+
 ## Concepto
 
-- **Productos**: máscaras del catálogo, cada una asociada a un distrito y a una familia (Kitsune, Oni, Karasu, Neko, Sakura, Ronin).
-- **Transmisiones**: notas y guías cortas con tono editorial.
-- **Carrito**: contemplado **visualmente** en el header y en la ficha de producto, pero **no implementado** todavía. La etiqueta y el botón están desactivados a propósito.
+- **Productos**: 6 máscaras del catálogo (Kitsune, Oni, Karasu, Neko, Sakura, Ronin), cada una con su distrito.
+- **Transmisiones**: 5 notas editoriales con tono clandestino-técnico.
+- **Carrito**: contemplado visualmente con drawer Alpine, **NO funcional**. Copy honesta: *"el carrito se abre en la próxima fase del circuito"*.
 
-## Tecnologías
+## Stack
 
-| Tecnología | Para qué se usa |
+| Tecnología | Para qué |
 |---|---|
-| **Laravel 13** (`Laravel Framework 13.7.0`) | Framework principal. Provee el patrón **MVC**, ruteo, ORM (Eloquent), migrations y seeders. |
-| **Blade** | Motor de plantillas. ~11 componentes propios (`x-mask-placeholder`, `x-mask-node`, `x-mask-dossier`, `x-product-card`, `x-post-card`, `x-stat-meter`, `x-access-button`, `x-circuit-section-heading`, `x-system-label`, `x-terminal-line`, `x-badge`). |
-| **Tailwind CSS v4** | Framework de utilidades CSS. Configurado vía `@tailwindcss/vite` (esquema oficial de Laravel 13, sin `tailwind.config.js`). |
-| **CSS custom** | Sistema visual propio en `resources/css/app.css`: tokens `--ck-*` (paleta cyberpunk-japonesa) declarados en `@theme`, utilidades `.ck-grid-bg`, `.ck-noise`, `.ck-scanline`, `.ck-panel`, `.ck-panel-corners`, `.ck-glow-*`, `.ck-terminal-label`. |
-| **Alpine.js 3** | Interactividad mínima en cliente: estado de activación en home, ficha activa en el mapa de identidades. Todo sigue siendo usable sin JS (los nodos son `<a>` reales). |
-| **Google Fonts** (Space Grotesk + JetBrains Mono) | Tipografía: display sans para títulos, mono para datos técnicos y códigos del sistema. |
-| **Vite** | Bundler para CSS y JS. Hot reload en `npm run dev`, build optimizado en `npm run build`. |
-| **SQLite** | Base de datos local por default (archivo `database/database.sqlite`). Sin servidor externo necesario para correr el proyecto. |
+| **Laravel 13** | MVC, ruteo, Eloquent, migrations, seeders. |
+| **Blade** | Plantillas + 5 componentes propios. |
+| **Tailwind CSS v4** | `@tailwindcss/vite`. Tokens declarados en `@theme` de `app.css`. |
+| **Alpine.js 3** | Estado UI mínimo (`cartOpen`). |
+| **Lenis 1.3** | Smooth scroll, guardado por `prefers-reduced-motion`. |
+| **GSAP 3** | Reservado para reveals avanzados (no usado en MVP). |
+| **Playwright** | Screenshots automáticos a 4 viewports (`_research/shoot-*.mjs`). |
+| **Vite 7** | HMR + build optimizado. |
+| **SQLite** | DB local (`database/database.sqlite`). |
+| **Google Fonts** | Archivo Black + Inter + IBM Plex Mono + Shippori Mincho B1 (4 familias). |
 
 ## Sistema visual
 
-Paleta `--ck-*` declarada como `@theme` en `resources/css/app.css`. Eso genera utilidades Tailwind automáticamente: `bg-ck-bg`, `text-ck-cyan`, `border-ck-line`, etc. Las variables clave:
+Paleta cerrada en `@theme` (`resources/css/app.css`):
 
-| Token | Valor | Uso |
+| Token | Valor | Rol |
 |---|---|---|
-| `--color-ck-bg` | `#03050B` | fondo global azul-negro profundo |
-| `--color-ck-panel` | `#0A1324` | paneles técnicos |
-| `--color-ck-cyan` | `#00E5FF` | acento principal, cursores, links activos |
-| `--color-ck-magenta` | `#FF2DAA` | acento secundario |
-| `--color-ck-text` / `--color-ck-muted` | `#EAF7FF` / `#7C8EA3` | textos primario / secundario |
+| `--color-ink` | `#14171F` | bg dominante |
+| `--color-bone` | `#EBE5CE` | texto sobre ink |
+| `--color-ember` | `#FF1919` | accent crítico, bg block-ember |
+| `--color-ash` | `#252525` | divisores, scan-grid sobre ink |
+| `--color-bone-dim` | `#8A8576` | texto secundario, mono labels |
+| `--color-ink-soft` / `--color-ink-deep` | `#1E222D` / `#0A0C12` | hover bg / overlays |
 
-Las utilidades `.ck-panel-corners` agregan corner brackets via pseudo-elementos; `.ck-scanline` agrega líneas finas estilo CRT; `.ck-grid-bg` da una grilla técnica de fondo. Todas respetan `prefers-reduced-motion`.
+4 familias tipográficas, 4 cromáticos principales + 3 derivados, 6 glow-only por producto (`R10`).
 
 ## Estructura MVC
 
 ```
 app/
 ├── Http/Controllers/
-│   ├── HomeController.php          # index(): arma el home con destacados
-│   ├── ProductController.php       # index + show de productos
-│   └── PostController.php          # index + show de transmisiones
+│   ├── HomeController.php          # index() → home con destacados
+│   ├── ProductController.php       # index + show
+│   └── PostController.php          # index + show
 ├── Models/
-│   ├── Product.php                 # Eloquent, scope featured(), route key 'slug'
-│   └── Post.php                    # Eloquent, scope featured(), route key 'slug'
+│   ├── Product.php                 # scopes featured/available/byFilter, route key 'slug'
+│   └── Post.php                    # scopes featured/published, route key 'slug'
 └── Services/
-    └── FeaturedContentService.php  # extrae destacados (separa lógica del controller)
+    └── FeaturedContentService.php
 
 database/
 ├── migrations/
-│   ├── 2026_05_04_000001_create_products_table.php
-│   └── 2026_05_04_000002_create_posts_table.php
+│   ├── ..._create_products_table.php
+│   └── ..._create_posts_table.php
 └── seeders/
-    ├── DatabaseSeeder.php          # llama a ProductSeeder y PostSeeder
-    ├── ProductSeeder.php           # 6 máscaras iniciales
-    └── PostSeeder.php              # 5 transmisiones iniciales
+    ├── DatabaseSeeder.php
+    ├── ProductSeeder.php           # 6 máscaras
+    └── PostSeeder.php              # 5 transmisiones
 
-resources/views/
-├── layouts/app.blade.php           # layout base con header + carrito visual
-├── home.blade.php
-├── products/{index,show}.blade.php
-├── posts/{index,show}.blade.php
-└── components/{product-card,post-card,badge}.blade.php
+resources/
+├── css/app.css                     # @theme + clases tipográficas + secciones + componentes
+├── js/app.js                       # Alpine + Lenis + IntersectionObserver reveal
+└── views/
+    ├── layouts/app.blade.php       # head, header fixed, main, footer, cart drawer
+    ├── components/
+    │   ├── bracket-cta.blade.php   # CTA con corner brackets reales
+    │   ├── marquee.blade.php       # track recursivo CSS
+    │   ├── mask-portrait.blade.php # img WebP o SVG por tipo
+    │   ├── stat-block.blade.php    # número display + label mono
+    │   └── system-tag.blade.php    # ▸ + dot ember
+    ├── home.blade.php              # 8 secciones § 8.1 (Opción C)
+    ├── products/
+    │   ├── index.blade.php         # § 8.2
+    │   └── show.blade.php          # § 8.3 (4 secciones)
+    └── posts/
+        ├── index.blade.php         # § 8.4
+        └── show.blade.php          # § 8.5
 
-routes/web.php                      # solo declara rutas, sin lógica
+public/images/products/             # 6 WebP del cliente (~810 KB)
+
+routes/web.php                      # 5 rutas, sin lógica
 ```
 
-`routes/web.php` no tiene lógica de negocio: cada ruta apunta a un controller.
-
-## Rutas principales
+## Rutas
 
 | Método | URL | Acción | Nombre |
 |---|---|---|---|
@@ -82,76 +102,57 @@ routes/web.php                      # solo declara rutas, sin lógica
 | GET | `/transmisiones` | `PostController@index` | `posts.index` |
 | GET | `/transmisiones/{post:slug}` | `PostController@show` | `posts.show` |
 
-El catálogo acepta `?filter=` con estos valores: `disponibles`, `proximas`, `agotadas`, `raras`, `legendarias`. La lógica vive en el scope `Product::scopeByFilter()` — sin lógica en `web.php` ni en el controller (este último solo lee el query y pasa al scope).
+`/productos` acepta `?filter=` con: `disponibles`, `proximas`, `agotadas`, `raras`, `legendarias`. La lógica vive en `Product::scopeByFilter()` — sin lógica en `web.php`.
 
-## Comandos para correr
+## Comandos
 
-Desde la raíz del proyecto:
+```powershell
+# (PowerShell) PATH para PHP/Composer
+$env:PATH = "C:\laragon\bin\php\php-8.3.30-Win32-vs16-x64;C:\laragon\bin\composer;" + $env:PATH
 
-```bash
 composer install
 npm install
-cp .env.example .env
+copy .env.example .env
 php artisan key:generate
 php artisan migrate:fresh --seed
-npm run dev          # en una terminal (Vite hot reload)
-php artisan serve    # en otra terminal (servidor PHP, http://127.0.0.1:8000)
+npm run dev               # terminal 1 (Vite HMR)
+php artisan serve         # terminal 2 (Laravel :8000)
 ```
 
-> En Windows / PowerShell, reemplazar `cp` por `Copy-Item .env.example .env`.
+## Acceptance criteria § 12
 
-La base SQLite se crea sola (`database/database.sqlite`) — no hace falta MySQL. Si querés cambiar a MySQL, editá `.env` (`DB_CONNECTION=mysql`, etc.).
+Verificación detallada en `docs/PROGRESS.md`. Resumen:
 
-## Assets visuales
+- [x] 5 rutas → 200, ruta inválida → 404.
+- [x] `migrate:fresh --seed` corre limpio.
+- [x] `npm run build` corre limpio. CSS gzip **10.48 KB** (< 80 KB), JS gzip **38.6 KB** total (< 100 KB).
+- [x] Responsive verificado a 390 / 1440 / 1920 / 2560 (capturas en `tmp-screenshots/full/`).
+- [x] 4 familias tipográficas, 4 tokens cromáticos.
+- [x] 1 `<h1>` por página, jerarquía sin saltos, semántica completa.
+- [x] Focus visible global, skip link, `prefers-reduced-motion` cortando animaciones.
+- [x] Sin `font-style: italic`, sin `border-radius` en cards.
+- [x] Wall asimétrico real R35 (no grid uniforme).
+- [x] Frame brackets ASCII reales (pseudo-elements).
+- [x] Marquee recursivo en hero + featured-mask + closing (3 secciones).
+- [x] HUD details (status corner, hash, coords, signal-meter).
 
-El proyecto **no necesita imágenes para correr**. Cada producto tiene un `image_path` previsto, pero si el archivo todavía no existe en `public/`, las vistas muestran un **placeholder visual** construido con CSS (fondo oscuro + código + rareza + acento de color dominante + leyenda *"Imagen pendiente de sincronización"*).
+## Carrito
 
-### Estructura de carpetas
+Drawer Alpine que slide-in al click en `[ CARRITO 00 ]`. Estado puramente visual. Copy:
 
-```
-public/images/
-├── products/    # imágenes individuales de cada máscara
-├── hero/        # portadas / banners (Fase visual)
-└── textures/    # patterns y texturas reutilizables (Fase visual)
-```
+> Tu archivo está vacío. El carrito se abre en la próxima fase del circuito.
 
-Las tres carpetas existen con un `.gitkeep` para que Git las preserve aunque estén vacías.
-
-### Imágenes de producto
-
-| Producto | Path esperado |
-|---|---|
-| Kitsune-01: Zorro de Neón | `public/images/products/kitsune-01-zorro-de-neon.webp` |
-| Oni-09: Protocolo Rojo | `public/images/products/oni-09-protocolo-rojo.webp` |
-| Karasu-07: Señal Negra | `public/images/products/karasu-07-senal-negra.webp` |
-| Neko-03: Glitch de la Suerte | `public/images/products/neko-03-glitch-de-la-suerte.webp` |
-| Sakura-404: Flor Rota | `public/images/products/sakura-404-flor-rota.webp` |
-| Ronin-X: Último Pasajero | `public/images/products/ronin-x-ultimo-pasajero.webp` |
-
-### Recomendaciones
-
-- **Formato:** `.webp` (mejor compresión que JPG/PNG manteniendo calidad).
-- **Tamaño:** `1024×1024` (cuadrado) o `1200×1600` (vertical 3:4). Las vistas usan `aspect-square` con `object-cover`, así que cualquier proporción se recorta limpiamente.
-- **Peso objetivo:** menos de 200 KB por imagen.
-- **Nombre:** debe coincidir exactamente con el `slug` del producto + `.webp`.
-
-### Cómo reemplazar un placeholder por una imagen real
-
-1. Generar/exportar la imagen como `.webp` con el nombre exacto del slug.
-2. Copiarla a `public/images/products/`.
-3. Recargar la página. No hace falta tocar la base, ni el seeder, ni el Blade: el método `Product::hasImage()` detecta automáticamente que el archivo existe y la vista cambia del placeholder a la imagen real.
-
-Las imágenes de producto **no son obligatorias para correr el proyecto**: la Fase 1 está pensada para entregarse con o sin assets.
-
-## Carrito (estado actual)
-
-El carrito está **contemplado visualmente** pero **no implementado**:
-
-- En el header hay un ícono de carrito con contador `0` y estado deshabilitado.
-- En la ficha de producto hay un botón **"Agregar al carrito (próximamente)"** también deshabilitado.
-
-No hay sesión de carrito, ni modelo `CartItem`, ni rutas `cart.*`. Esa parte queda fuera del alcance de esta entrega.
+Único CTA del drawer: "VER EL ARCHIVO" → `/productos`. Sin `<form>` checkout, sin localStorage, sin modelo `CartItem`.
 
 ## Notas de diseño
 
-La interfaz es **básica, limpia y legible** a propósito. Paleta neutra (negro/gris), tipografía sans, sin animaciones decorativas todavía. La identidad visual final no está dentro del alcance del primer parcial.
+El sistema visual sigue el lenguaje **Utopia Tokyo** (paleta `#14171F` + `#FF1919` + `#EBE5CE`, brutalismo geom uppercase, frame brackets ASCII, marquees recursivos, status corners) pero con **arquitectura Opción C**: home con 8 secciones propias de CK incluyendo 3 que Utopia no tiene (stats globales, mapa de distritos, última transmisión destacada). Detalles en `docs/DESIGN_BRIEF.md` § 1.4 / § 2.4 / § 2.5.
+
+Las tipografías son las equivalentes free de Google Fonts a las que usa Utopia (paid):
+
+| Utopia (paid) | CK (free Google Fonts) |
+|---|---|
+| PPMori 700 | Archivo Black 900 |
+| PPMori 600 | Inter 500 |
+| Zpix | IBM Plex Mono 500 |
+| (CJK implícito) | Shippori Mincho B1 |

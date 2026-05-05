@@ -24,3 +24,14 @@ Homestead.yaml
 Thumbs.db
 /_research
 /tmp-screenshots
+
+# Estado interno del harness oh-my-claudecode (no parte del proyecto)
+/.omc
+
+# Build output regenerable con `npm run build`
+/public/build/manifest.json
+/public/build/assets
+
+# DB local (se regenera con `php artisan migrate:fresh --seed`)
+/database/database.sqlite
+/database/database.sqlite-journal
