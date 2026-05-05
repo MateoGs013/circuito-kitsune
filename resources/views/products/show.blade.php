@@ -77,7 +77,7 @@
     <section class="product-attrs" aria-labelledby="attrs-heading">
         <div class="product-section__head">
             <x-system-tag label="01 · ATRIBUTOS" />
-            <h2 id="attrs-heading" class="product-section__title" data-reveal>CÓMO SE COMPORTA<br>EL CIRCUITO.</h2>
+            <h2 id="attrs-heading" class="product-section__title" data-reveal><span class="title-line">CÓMO SE COMPORTA</span><span class="title-line">EL CIRCUITO.</span></h2>
         </div>
         <div class="product-attrs__grid">
             @foreach($attrKanji as $kanji => $label)
@@ -118,7 +118,7 @@
     {{-- (4) ACCIÓN (block-ember invertido) --}}
     <section id="accion" class="product-action" aria-labelledby="action-heading">
         <x-system-tag :label="strtoupper($product->statusLabel()) . ' · ' . $product->code . ' · ' . strtoupper($product->district)" variant="ink" />
-        <h2 id="action-heading" class="product-action__title" data-reveal>RESERVÁ ESTA<br>MÁSCARA.</h2>
+        <h2 id="action-heading" class="product-action__title" data-reveal><span class="title-line">RESERVÁ ESTA</span><span class="title-line">MÁSCARA.</span></h2>
         <p class="product-action__body t-body-lg">
             @if($isAvailable)
                 {{ strtoupper($product->code) }} está activa esta noche en {{ $product->district }}. Una señal por máscara, una máscara por turno.

@@ -18,7 +18,7 @@
 @section('content')
     <section class="catalog-hero" aria-labelledby="catalog-heading">
         <x-system-tag :label="'ARCHIVO · ' . str_pad($totalCount, 2, '0', STR_PAD_LEFT) . ' IDENTIDADES'" pulse />
-        <h1 id="catalog-heading" class="catalog-hero__title" data-reveal>ARCHIVO DE<br>MÁSCARAS.</h1>
+        <h1 id="catalog-heading" class="catalog-hero__title" data-reveal><span class="title-line">ARCHIVO DE</span><span class="title-line">MÁSCARAS.</span></h1>
         <p class="catalog-hero__lede t-body-lg">
             Cada máscara opera en un distrito propio. Filtros sincronizados con el estado de la noche. Click en cualquier expediente para abrir.
         </p>

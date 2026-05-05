@@ -132,7 +132,7 @@
         <div class="wall__head">
             <div class="wall__head-main">
                 <x-system-tag label="ARCHIVO · 06 IDENTIDADES ACTIVAS" pulse />
-                <h2 id="wall-heading" class="wall__title" data-reveal>ARCHIVO DE<br>MÁSCARAS.</h2>
+                <h2 id="wall-heading" class="wall__title" data-reveal><span class="title-line">ARCHIVO DE</span><span class="title-line">MÁSCARAS.</span></h2>
                 <p class="wall__lede t-body">
                     Cada cuadro es un expediente. Cada bracket rojo señala una identidad disponible esta noche. Hacé click para abrir.
                 </p>
@@ -269,7 +269,7 @@
         <div class="district-map__head">
             <div class="district-map__head-main">
                 <x-system-tag label="TERRITORIOS · 06 DISTRITOS DEL CIRCUITO" pulse />
-                <h2 id="district-map-heading" class="district-map__title" data-reveal>MAPA DEL<br>CIRCUITO.</h2>
+                <h2 id="district-map-heading" class="district-map__title" data-reveal><span class="title-line">MAPA DEL</span><span class="title-line">CIRCUITO.</span></h2>
                 <p class="district-map__lede t-body">
                     Cada máscara opera en un distrito propio. La asignación cambia con la noche. Las coordenadas son ficcionales pero deterministas.
                 </p>

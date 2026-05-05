@@ -11,7 +11,7 @@
 @section('content')
     <section class="posts-hero" aria-labelledby="posts-heading">
         <x-system-tag :label="'FEED · ' . str_pad($posts->count(), 2, '0', STR_PAD_LEFT) . ' SEÑALES · EN LÍNEA'" pulse />
-        <h1 id="posts-heading" class="posts-hero__title" data-reveal>TRANSMISIONES<br>INTERCEPTADAS.</h1>
+        <h1 id="posts-heading" class="posts-hero__title" data-reveal><span class="title-line">TRANSMISIONES</span><span class="title-line">INTERCEPTADAS.</span></h1>
         <p class="posts-hero__lede t-body-lg">
             Guías, sistemas y novedades del turno noche. Cada señal es archivada con hash propio.
         </p>

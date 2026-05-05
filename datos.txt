@@ -1,10 +1,10 @@
 Escuela de Arte Multimedial Da Vinci
-CARRERA: [completar]
+CARRERA: Diseño y Desarrollo Web
 MATERIA: Portales y Comercio Electrónico
 TRABAJO PRÁCTICO: Primer Parcial
 PROFESOR: Carlos Ferrer
-ALUMNO/S: [completar]
-CUATRIMESTRE: [completar]
+ALUMNO/S: Mateo Sonzogni
+CUATRIMESTRE: 4to
 AÑO: 2026
-TURNO: [completar]
-COMISIÓN: [completar]
+TURNO: mañana
+COMISIÓN: dwm4ap

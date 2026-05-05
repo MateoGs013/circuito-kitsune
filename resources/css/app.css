@@ -244,6 +244,11 @@ a {
     color: var(--color-ember);
 }
 
+/* span con display:block para forzar salto sin <br> en headings */
+.title-line {
+    display: block;
+}
+
 /* ==========================================================================
    COLOR BLOCKS · § 5.1.4
    ========================================================================== */

@@ -131,7 +131,7 @@
     </button>
     <x-system-tag label="CARRITO · 00 EXPEDIENTES" pulse />
     <h2 id="cart-title" class="t-display-md" style="color: var(--color-bone);">
-        Tu archivo<br>está vacío.
+        <span class="title-line">Tu archivo</span><span class="title-line">está vacío.</span>
     </h2>
     <p class="t-body" style="color: var(--color-bone-dim);">
         El carrito se abre en la próxima fase del circuito. Por ahora podés explorar las máscaras del archivo y reservar señales.
