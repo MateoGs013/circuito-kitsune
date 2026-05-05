@@ -1,13 +1,17 @@
 @extends('layouts.app')
 
-@section('title', 'Transmisiones · pendiente')
+@section('title', 'Transmisiones')
 
 @section('content')
-<section class="min-h-screen flex items-center justify-center px-6">
-    <div class="text-center">
-        <x-system-tag class="mb-4">▸ STUB</x-system-tag>
-        <h1 class="font-display italic text-bone text-5xl">Transmisiones</h1>
-        <p class="text-bone-dim mt-4 font-mono uppercase tracking-[0.22em] text-xs">{{ count($posts ?? []) }} señales</p>
-    </div>
-</section>
+    <h1>Transmisiones</h1>
+
+    <ul>
+        @foreach($posts as $post)
+            <li>
+                <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+                — {{ $post->category }} · {{ $post->author }} · {{ $post->formattedDate() }} · {{ $post->readingTimeLabel() }}
+                <p>{{ $post->excerpt }}</p>
+            </li>
+        @endforeach
+    </ul>
 @endsection
