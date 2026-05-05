@@ -1,0 +1,133 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Product;
+use Illuminate\Database\Seeder;
+
+class ProductSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $products = [
+            [
+                'name' => 'Kitsune-01: Zorro de Neón',
+                'slug' => 'kitsune-01-zorro-de-neon',
+                'code' => 'KSN-01',
+                'category' => 'Máscara de velocidad',
+                'rarity' => 'Rara de señal',
+                'district' => 'Shibuya Static',
+                'price' => 42000,
+                'short_description' => 'Una máscara veloz, astuta y luminosa, diseñada para cruzar callejones digitales sin dejar rastro.',
+                'long_description' => 'La Zorro de Neón activa una identidad ágil, evasiva y precisa. Fue diseñada para usuarios que atraviesan distritos saturados de información, luces rotas y vigilancia urbana. Su señal no permanece demasiado tiempo en ningún lugar.',
+                'dominant_color' => 'cyan',
+                'status' => Product::STATUS_AVAILABLE,
+                'signal_level' => 88,
+                'agility' => 94,
+                'spirit' => 76,
+                'ferocity' => 42,
+                'image_path' => 'images/products/kitsune-01-zorro-de-neon.webp',
+                'is_featured' => true,
+            ],
+            [
+                'name' => 'Oni-09: Protocolo Rojo',
+                'slug' => 'oni-09-protocolo-rojo',
+                'code' => 'ONI-09',
+                'category' => 'Máscara de impacto',
+                'rarity' => 'Prohibida',
+                'district' => 'Akai Gate',
+                'price' => 58000,
+                'short_description' => 'Una identidad pesada y frontal, creada para atravesar zonas bloqueadas del circuito.',
+                'long_description' => 'Protocolo Rojo no fue pensada para pasar desapercibida. Su presencia altera el pulso del distrito y abre paso donde otros usuarios retroceden. Es una máscara de fuerza, tensión y avance directo.',
+                'dominant_color' => 'red',
+                'status' => Product::STATUS_AVAILABLE,
+                'signal_level' => 79,
+                'agility' => 48,
+                'spirit' => 68,
+                'ferocity' => 96,
+                'image_path' => 'images/products/oni-09-protocolo-rojo.webp',
+                'is_featured' => true,
+            ],
+            [
+                'name' => 'Karasu-07: Señal Negra',
+                'slug' => 'karasu-07-senal-negra',
+                'code' => 'KRS-07',
+                'category' => 'Máscara de sigilo',
+                'rarity' => 'Sombra',
+                'district' => 'Crowline Towers',
+                'price' => 39000,
+                'short_description' => 'Una máscara oscura de vigilancia, sigilo y lectura urbana.',
+                'long_description' => 'Señal Negra fue creada para observar sin ser detectada. Su identidad se mueve entre antenas, terrazas y pasillos de mantenimiento. Ideal para usuarios que prefieren leer el sistema antes de intervenirlo.',
+                'dominant_color' => 'violet',
+                'status' => Product::STATUS_AVAILABLE,
+                'signal_level' => 91,
+                'agility' => 82,
+                'spirit' => 61,
+                'ferocity' => 57,
+                'image_path' => 'images/products/karasu-07-senal-negra.webp',
+                'is_featured' => true,
+            ],
+            [
+                'name' => 'Neko-03: Glitch de la Suerte',
+                'slug' => 'neko-03-glitch-de-la-suerte',
+                'code' => 'NKO-03',
+                'category' => 'Máscara de azar',
+                'rarity' => 'Inestable',
+                'district' => 'Maneki Alley',
+                'price' => 35000,
+                'short_description' => 'Una máscara de suerte alterada, errores suaves y movimientos impredecibles.',
+                'long_description' => 'Glitch de la Suerte convierte pequeños errores del sistema en oportunidades. Es una identidad liviana, lúdica y difícil de anticipar. Nadie sabe con precisión qué puerta puede abrir.',
+                'dominant_color' => 'gold',
+                'status' => Product::STATUS_AVAILABLE,
+                'signal_level' => 67,
+                'agility' => 73,
+                'spirit' => 88,
+                'ferocity' => 35,
+                'image_path' => 'images/products/neko-03-glitch-de-la-suerte.webp',
+                'is_featured' => false,
+            ],
+            [
+                'name' => 'Sakura-404: Flor Rota',
+                'slug' => 'sakura-404-flor-rota',
+                'code' => 'SKR-404',
+                'category' => 'Máscara de memoria',
+                'rarity' => 'Fantasma',
+                'district' => 'Hanami Grid',
+                'price' => 47000,
+                'short_description' => 'Una máscara delicada y melancólica, nacida de una flor digital que no terminó de cargar.',
+                'long_description' => 'Flor Rota conserva datos incompletos de una primavera artificial. Su identidad proyecta belleza, pérdida y memoria fragmentada. Algunos usuarios afirman haber visto calles enteras florecer al activarla.',
+                'dominant_color' => 'magenta',
+                'status' => Product::STATUS_UPCOMING,
+                'signal_level' => 74,
+                'agility' => 59,
+                'spirit' => 97,
+                'ferocity' => 28,
+                'image_path' => 'images/products/sakura-404-flor-rota.webp',
+                'is_featured' => false,
+            ],
+            [
+                'name' => 'Ronin-X: Último Pasajero',
+                'slug' => 'ronin-x-ultimo-pasajero',
+                'code' => 'RNX-00',
+                'category' => 'Máscara de tránsito',
+                'rarity' => 'Legendaria',
+                'district' => 'Last Train Loop',
+                'price' => 76000,
+                'short_description' => 'Una identidad solitaria para quienes viajan en el último tren del sistema.',
+                'long_description' => 'Último Pasajero aparece solamente cuando el circuito entra en silencio. Su identidad está asociada a estaciones vacías, trenes sin destino visible y decisiones tomadas demasiado tarde.',
+                'dominant_color' => 'blue',
+                'status' => Product::STATUS_SOLD_OUT,
+                'signal_level' => 99,
+                'agility' => 71,
+                'spirit' => 84,
+                'ferocity' => 73,
+                'image_path' => 'images/products/ronin-x-ultimo-pasajero.webp',
+                'is_featured' => false,
+            ],
+        ];
+
+        foreach ($products as $product) {
+            Product::updateOrCreate(['slug' => $product['slug']], $product);
+        }
+    }
+}
