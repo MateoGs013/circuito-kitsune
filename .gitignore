@@ -22,8 +22,9 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
-/_research
-/tmp-screenshots
+# _research/ y tmp-screenshots/ se versionan: documentan el proceso de
+# desarrollo asistido por IA (research de la referencia Utopia, scripts
+# Playwright, capturas de iteración + entregable final). Ver docs/PROGRESS.md.
 
 # Estado interno del harness oh-my-claudecode (no parte del proyecto)
 /.omc

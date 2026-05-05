@@ -1,0 +1,487 @@
+{
+  "body": {
+    "fontFamily": "PPMori, Arial, sans-serif",
+    "fontSize": "21.3333px",
+    "color": "rgb(37, 37, 37)",
+    "backgroundColor": "rgb(20, 23, 31)",
+    "lineHeight": "29.8667px"
+  },
+  "headings": [
+    {
+      "tag": "H2",
+      "text": "EXPERIENCE  WARNING",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "96px",
+      "fontWeight": "700",
+      "lineHeight": "100.8px",
+      "letterSpacing": "normal",
+      "textTransform": "none",
+      "color": "rgb(20, 23, 31)"
+    },
+    {
+      "tag": "H1",
+      "text": "UTOPIATOKYO",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "263.04px",
+      "fontWeight": "600",
+      "lineHeight": "199.91px",
+      "letterSpacing": "-5.2608px",
+      "textTransform": "none",
+      "color": "rgb(20, 23, 31)"
+    },
+    {
+      "tag": "H2",
+      "text": "Explore masks of Utopia Tokyo where past and future collide",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "213.333px",
+      "fontWeight": "700",
+      "lineHeight": "192px",
+      "letterSpacing": "-4.26667px",
+      "textTransform": "uppercase",
+      "color": "rgb(255, 25, 25)"
+    },
+    {
+      "tag": "H2",
+      "text": "UTOPIA",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "263.04px",
+      "fontWeight": "600",
+      "lineHeight": "199.91px",
+      "letterSpacing": "-5.2608px",
+      "textTransform": "none",
+      "color": "rgb(20, 23, 31)"
+    },
+    {
+      "tag": "H2",
+      "text": "TOKYO",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "263.04px",
+      "fontWeight": "600",
+      "lineHeight": "199.91px",
+      "letterSpacing": "-5.2608px",
+      "textTransform": "none",
+      "color": "rgba(20, 23, 31, 0)"
+    }
+  ],
+  "paragraphs": [
+    {
+      "text": "This site features high-contrast visual effects and rapid transitions that may t",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "21.3333px",
+      "fontWeight": "600",
+      "lineHeight": "27.7333px",
+      "letterSpacing": "-0.213333px",
+      "color": "rgb(20, 23, 31)"
+    },
+    {
+      "text": "Holographic billboards light up the towering skyline, while traditional temples ",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "21.3333px",
+      "fontWeight": "600",
+      "lineHeight": "27.7333px",
+      "letterSpacing": "-0.213333px",
+      "color": "rgb(20, 23, 31)"
+    },
+    {
+      "text": "The namahage mask is worn by a performer who portrays an ogre, and this performe",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "21.3333px",
+      "fontWeight": "600",
+      "lineHeight": "29.8667px",
+      "letterSpacing": "normal",
+      "color": "rgb(235, 229, 206)"
+    },
+    {
+      "text": "Faces of time, shadows of tomorrow. Masks of Utopia Tokyo where past and future ",
+      "fontFamily": "\"PP Neue Montreal\"",
+      "fontSize": "21.3333px",
+      "fontWeight": "600",
+      "lineHeight": "29.8667px",
+      "letterSpacing": "normal",
+      "color": "rgb(235, 229, 206)"
+    },
+    {
+      "text": "Step into Utopia Tokyo, where hidden histories converge with a reimagined future",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "32px",
+      "fontWeight": "600",
+      "lineHeight": "40px",
+      "letterSpacing": "-0.64px",
+      "color": "rgb(20, 23, 31)"
+    }
+  ],
+  "interactive": [
+    {
+      "tag": "BUTTON",
+      "text": "[  US E SA FE M O",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "17.0667px",
+      "fontWeight": "600",
+      "color": "rgb(20, 23, 31)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "border": "0px none rgb(20, 23, 31)",
+      "padding": "0px",
+      "textTransform": "none",
+      "letterSpacing": "normal"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "[  ENABL E GLIT CH EFF E",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "17.0667px",
+      "fontWeight": "600",
+      "color": "rgb(20, 23, 31)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "border": "0px none rgb(20, 23, 31)",
+      "padding": "0px",
+      "textTransform": "none",
+      "letterSpacing": "normal"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "[ ENTER WEBSITE ]",
+      "fontFamily": "Zpix, Arial, sans-serif",
+      "fontSize": "12.032px",
+      "fontWeight": "400",
+      "color": "rgb(255, 25, 25)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "border": "0px none rgb(255, 25, 25)",
+      "padding": "0px",
+      "textTransform": "none",
+      "letterSpacing": "normal"
+    },
+    {
+      "tag": "A",
+      "text": "",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "14px",
+      "fontWeight": "600",
+      "color": "rgb(255, 25, 25)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "border": "0px none rgb(255, 25, 25)",
+      "padding": "10px 9.8px 10px 0px",
+      "textTransform": "none",
+      "letterSpacing": "normal"
+    },
+    {
+      "tag": "BUTTON",
+      "text": ">_EXECUTE_CREATION",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "17.0667px",
+      "fontWeight": "600",
+      "color": "rgb(20, 23, 31)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "border": "0px none rgb(20, 23, 31)",
+      "padding": "0px",
+      "textTransform": "none",
+      "letterSpacing": "normal"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "21.3333px",
+      "fontWeight": "600",
+      "color": "rgb(235, 229, 206)",
+      "backgroundColor": "rgb(20, 23, 31)",
+      "border": "0px none rgb(235, 229, 206)",
+      "padding": "5.33333px",
+      "textTransform": "none",
+      "letterSpacing": "normal"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "21.3333px",
+      "fontWeight": "600",
+      "color": "rgb(235, 229, 206)",
+      "backgroundColor": "rgb(20, 23, 31)",
+      "border": "0px none rgb(235, 229, 206)",
+      "padding": "5.33333px",
+      "textTransform": "none",
+      "letterSpacing": "normal"
+    },
+    {
+      "tag": "BUTTON",
+      "text": "",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "21.3333px",
+      "fontWeight": "600",
+      "color": "rgb(235, 229, 206)",
+      "backgroundColor": "rgb(20, 23, 31)",
+      "border": "0px none rgb(235, 229, 206)",
+      "padding": "5.33333px",
+      "textTransform": "none",
+      "letterSpacing": "normal"
+    },
+    {
+      "tag": "BUTTON",
+      "text": ">_EXECUTE_CREATION",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "17.0667px",
+      "fontWeight": "600",
+      "color": "rgb(255, 25, 25)",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "border": "0px none rgb(255, 25, 25)",
+      "padding": "0px",
+      "textTransform": "none",
+      "letterSpacing": "normal"
+    }
+  ],
+  "topColors": [
+    {
+      "color": "rgb(20, 23, 31)",
+      "count": 1782
+    },
+    {
+      "color": "rgb(235, 229, 206)",
+      "count": 1441
+    },
+    {
+      "color": "color(srgb 0.0784314 0.0901961 0.121569 / 0.2)",
+      "count": 1221
+    },
+    {
+      "color": "rgb(255, 25, 25)",
+      "count": 907
+    },
+    {
+      "color": "color(srgb 0.921569 0.898039 0.807843 / 0.2)",
+      "count": 575
+    },
+    {
+      "color": "rgb(37, 37, 37)",
+      "count": 327
+    },
+    {
+      "color": "rgb(0, 0, 0)",
+      "count": 50
+    },
+    {
+      "color": "color(srgb 1 0.0980392 0.0980392 / 0.2)",
+      "count": 47
+    },
+    {
+      "color": "rgb(255, 255, 255)",
+      "count": 14
+    },
+    {
+      "color": "rgba(20, 23, 31, 0)",
+      "count": 13
+    },
+    {
+      "color": "color(srgb 0.921569 0.898039 0.807843 / 0.2) color(srgb 0.921569 0.898039 0.807843 / 0.2) rgb(235, 229, 206) rgb(235, 229, 206)",
+      "count": 6
+    },
+    {
+      "color": "rgb(255, 26, 26)",
+      "count": 2
+    },
+    {
+      "color": "rgba(255, 25, 25, 0)",
+      "count": 2
+    },
+    {
+      "color": "rgb(20, 23, 31) rgb(0, 0, 0) rgb(20, 23, 31) rgb(20, 23, 31)",
+      "count": 2
+    },
+    {
+      "color": "rgb(255, 25, 25) rgb(37, 37, 37) rgb(37, 37, 37)",
+      "count": 1
+    },
+    {
+      "color": "rgb(20, 23, 31) rgb(255, 25, 25)",
+      "count": 1
+    },
+    {
+      "color": "rgb(20, 23, 31) rgb(20, 23, 31) rgb(20, 23, 31) rgb(255, 25, 25)",
+      "count": 1
+    },
+    {
+      "color": "color(srgb 0.921569 0.898039 0.807843 / 0.2) color(srgb 0.921569 0.898039 0.807843 / 0.2) rgb(255, 25, 25)",
+      "count": 1
+    },
+    {
+      "color": "color(srgb 0.921569 0.898039 0.807843 / 0.2) color(srgb 0.921569 0.898039 0.807843 / 0.2) rgb(235, 229, 206)",
+      "count": 1
+    },
+    {
+      "color": "rgba(20, 23, 31, 0.5)",
+      "count": 1
+    },
+    {
+      "color": "rgb(17, 24, 39)",
+      "count": 1
+    },
+    {
+      "color": "rgba(107, 114, 128, 0.55)",
+      "count": 1
+    },
+    {
+      "color": "rgb(20, 23, 31) rgb(20, 23, 31) rgb(0, 0, 0)",
+      "count": 1
+    }
+  ],
+  "topFonts": [
+    {
+      "font": "PPMori, Arial, sans-serif",
+      "count": 2385
+    },
+    {
+      "font": "Zpix, Arial, sans-serif",
+      "count": 301
+    },
+    {
+      "font": "Neopixel, Arial, sans-serif",
+      "count": 49
+    },
+    {
+      "font": "sans-serif",
+      "count": 23
+    },
+    {
+      "font": "Zpix, monospace",
+      "count": 12
+    },
+    {
+      "font": "\"Times New Roman\"",
+      "count": 2
+    },
+    {
+      "font": "\"PP Neue Montreal\"",
+      "count": 2
+    }
+  ],
+  "viewport": {
+    "width": 1920,
+    "height": 1080,
+    "dpr": 1
+  },
+  "stylesheets": [
+    "(inline)",
+    "https://cdn.prod.website-files.com/69810f9f220beb18481f5866/css/utopiatokyo2026.webflow.shared.7afc8fe42.min.css",
+    "(inline)",
+    "(inline)",
+    "(inline)",
+    "(inline)",
+    "(inline)",
+    "(inline)",
+    "(inline)",
+    "(inline)",
+    "(inline)",
+    "(inline)",
+    "(inline)",
+    "(inline)"
+  ],
+  "h1MainStyles": [
+    {
+      "selector": "H2.disclaimer__title",
+      "text": "EXPERIENCE  WARNING",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "96px",
+      "fontWeight": "700",
+      "fontStretch": "100%",
+      "color": "rgb(20, 23, 31)"
+    },
+    {
+      "selector": "SECTION.section.cc-hero",
+      "text": "35.6762°N/139.6503°EjapanUTOPIATOKYOMASKED.MARKED.",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "21.3333px",
+      "fontWeight": "600",
+      "fontStretch": "100%",
+      "color": "rgb(37, 37, 37)"
+    },
+    {
+      "selector": "DIV.hero__component",
+      "text": "35.6762°N/139.6503°EjapanUTOPIATOKYOMASKED.MARKED.",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "21.3333px",
+      "fontWeight": "600",
+      "fontStretch": "100%",
+      "color": "rgb(37, 37, 37)"
+    },
+    {
+      "selector": "NAV.hero__nav",
+      "text": "",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "14px",
+      "fontWeight": "600",
+      "fontStretch": "100%",
+      "color": "rgb(37, 37, 37)"
+    },
+    {
+      "selector": "svg.hero-logo",
+      "text": "",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "14px",
+      "fontWeight": "600",
+      "fontStretch": "100%",
+      "color": "rgb(255, 25, 25)"
+    },
+    {
+      "selector": "DIV.hero__frame",
+      "text": "35.6762°N/139.6503°EjapanUTOPIATOKYOMASKED.MARKED.",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "21.3333px",
+      "fontWeight": "600",
+      "fontStretch": "100%",
+      "color": "rgb(20, 23, 31)"
+    },
+    {
+      "selector": "DIV.hero__grid",
+      "text": "35.6762°N/139.6503°EjapanUTOPIATOKYOMASKED.MARKED.",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "21.3333px",
+      "fontWeight": "600",
+      "fontStretch": "100%",
+      "color": "rgb(20, 23, 31)"
+    },
+    {
+      "selector": "DIV.hero__top",
+      "text": "35.6762°N/139.6503°EjapanUTOPIATOKYO",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "21.3333px",
+      "fontWeight": "600",
+      "fontStretch": "100%",
+      "color": "rgb(20, 23, 31)"
+    },
+    {
+      "selector": "DIV.hero__logo",
+      "text": "UTOPIATOKYO",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "21.3333px",
+      "fontWeight": "600",
+      "fontStretch": "100%",
+      "color": "rgb(20, 23, 31)"
+    },
+    {
+      "selector": "H1.h-display",
+      "text": "UTOPIATOKYO",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "263.04px",
+      "fontWeight": "600",
+      "fontStretch": "100%",
+      "color": "rgb(20, 23, 31)"
+    },
+    {
+      "selector": "DIV.hero__title",
+      "text": "MASKED.MARKED.WATCHED.>_EXECUTE_CREATION",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "21.3333px",
+      "fontWeight": "600",
+      "fontStretch": "100%",
+      "color": "rgb(20, 23, 31)"
+    },
+    {
+      "selector": "UL.hero__subtitle-list",
+      "text": "MASKED.MARKED.WATCHED.",
+      "fontFamily": "PPMori, Arial, sans-serif",
+      "fontSize": "21.3333px",
+      "fontWeight": "600",
+      "fontStretch": "100%",
+      "color": "rgb(20, 23, 31)"
+    }
+  ]
+}
