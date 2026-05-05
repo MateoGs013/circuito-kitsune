@@ -1,10 +1,12 @@
 # Circuito Kitsune · Design Brief Absoluto
 
-> **Versión 2.0 · 2026-05-05 · redactado tras reset destructivo del front**
+> **Versión 3.0 · 2026-05-05 · ajustada a Opción C (CK como producto propio con lenguaje Utopia)**
 >
 > **Estado**: cerrado. Regla absoluta. Si algo no está acá, default = **no hacerlo**. Si encontrás contradicción interna, gana la sección de número más bajo. Si encontrás ambigüedad real, **detenete y preguntá** antes de implementar.
 >
 > **Audiencia de este doc**: una sola persona — el frontend que va a implementar Circuito Kitsune sobre el back Laravel 13 ya estable. Ese frontend puede ser un humano o una IA. El doc está escrito para que **no haya margen de interpretación creativa** porque ya hubo 5 iteraciones fallidas por exceso de interpretación.
+>
+> **Cambio v2 → v3**: el brief v2 quedó sesgado a "clone con piel" — replicaba la estructura exacta del home de Utopia (manifesto → kanji monumental → wall → featured → closing). v3 corrige hacia **Opción C**: CK toma de Utopia el **idioma visual** (paleta, tipografía, densidad atmosférica, brutalismo) pero la **arquitectura de páginas es propia** y aporta secciones que Utopia no tiene (mapa de distritos, última transmisión destacada, stats globales).
 
 ---
 
@@ -121,18 +123,32 @@ Estas reglas vienen del enunciado del TP. **No se relajan por estética**:
 | **`datos.txt`** completado por alumno antes de entrega | revisión manual (no es responsabilidad del frontend) |
 | **`README.md`** con tecnologías + comandos | revisión manual |
 
-### 1.4 Por qué Utopia Tokyo es la referencia
+### 1.4 Rol de Utopia Tokyo · referencia ESTÉTICA, no estructural
 
-Después de 5 iteraciones acumulando deuda visual, el cliente confirmó que la **estética de destino** es la del sitio `https://www.utopiatokyo.com/` — no para clonar, sino para alinear lenguaje.
+Después de 5 iteraciones acumulando deuda visual, el cliente confirmó que el **idioma visual de destino** es el del sitio `https://www.utopiatokyo.com/`. Pero la decisión cerrada (Opción C, ratificada el 2026-05-05) es **NO clonar la arquitectura del home de Utopia**. CK es un producto distinto.
 
-Razones por las que Utopia Tokyo es la referencia correcta:
+#### 1.4.1 Lo que Utopia aporta a CK (estética compartida)
 
-1. **Mismo terreno temático**: tienda ficcional de máscaras tradicionales japonesas presentadas bajo lenguaje cyberpunk.
-2. **Misma narrativa de fondo**: vigilancia, identidad asignada, ficción literaria.
-3. **Misma paleta de eje**: negro + acento rojo + cream texto. Sin saturación cyberpunk multicolor.
-4. **Misma jerarquía tipográfica**: display brutalista uppercase como manifesto, body sans humanist, accent pixel mono.
-5. **Misma composición editorial**: tipografía dominante, kanji como estructura no decoración, asimetría intencional.
-6. **Misma fricción intencional**: copy técnica, taglines repetidas como mantra, microcopy de operador.
+1. **Paleta cromática** idéntica: ink `#14171F` + bone `#EBE5CE` + ember `#FF1919` + ash `#252525`. Sin saturación multicolor.
+2. **Familias tipográficas equivalentes**: display brutalista uppercase + body sans humanist + accent pixel mono + CJK serif. Detalle exacto en § 5.2.
+3. **Densidad atmosférica**: HUD operator (status corners, hash, coords, version), marquee recursivo, scan-grid, frame brackets ASCII, microcopy técnica.
+4. **Disciplina brutalista**: H1 en uppercase letter-spacing -2%, line-height ≤ 0.9, color block edge-to-edge invertible.
+5. **Bracket CTAs** literales `[ TEXT ]`.
+6. **Wall asimétrico** como pattern para presentar productos visualmente.
+7. **Fricción intencional**: copy clandestina, taglines cortantes, prosa técnica.
+
+#### 1.4.2 Lo que Utopia NO aporta a CK (arquitectura propia)
+
+CK **no replica** el flow del home de Utopia (`manifesto → kanji monumental → wall → featured → closing`). CK tiene su propia arquitectura de 8 secciones (ver § 8.1) que aporta **3 secciones nuevas que Utopia no tiene**:
+
+- **Stats globales del circuito** (franja con 4 números agregados).
+- **Mapa de distritos** (grid 2×3 territorial — geo-céntrico, no objeto-céntrico).
+- **Última transmisión destacada** (1 bloque protagónico, no 3 chiquitas en feed).
+
+Y **descarta 2 secciones que Utopia sí tiene**:
+
+- **Manifesto quote** (la frase "el circuito te lee" era importada de Utopia).
+- **Kanji monumental + scrambled words** (sección con valor narrativo dudoso para CK; el patrón de kanji se conserva como decoración esquinera ocasional, no como sección protagónica — ver R22).
 
 Lo que **NO se clona** está documentado exhaustivamente en § 2.5.
 
@@ -323,18 +339,17 @@ Utopia abre con un `EXPERIENCE WARNING` modal que pide elegir entre `[ USE SAFE 
 | Pixel mono font para taglines/HUD | ✅ Zpix | ✅ VT323 (Google Fonts) | VT323 es pixel mono libre, single weight, similar feel a Zpix. |
 | CJK kanji monumental | ✅ implícito en `想郷`, `霊京`, `東京` | ✅ Shippori Mincho B1 (Google Fonts) | Mantengo de iteraciones previas, es la mejor opción CJK free. |
 | Color block edge-to-edge invertible | ✅ alternancia hero rojo / sección negra | ✅ Adoptado | Patrón clave de la referencia. |
-| H2 manifesto descompuesto en líneas | ✅ EXPLORE / MASKS / OF / UTOPIA / TOKYO | ✅ Adoptado | Patrón clave. |
+| H2 manifesto descompuesto en líneas | ✅ EXPLORE / MASKS / OF / UTOPIA / TOKYO | ✅ Adoptado **solo en hero y closing** (R59) | Patrón clave. **NO replicar la sección kanji + scrambled** (descartada en Opción C). |
 | Letter-spacing negativo en display | ✅ -2% en H1/H2 | ✅ Adoptado | Compresión óptica. |
 | Line-height ≤ 90% en display | ✅ 76-90% | ✅ Adoptado | Bloques apretados. |
-| Kanji monumental como sección | ✅ `東京` ocupando viewport | ✅ `狐` en sección 3 home | Pieza visual dominante. |
-| Ambient scrambled words | ✅ MASKZ → MASKS | ✅ Frase narrativa CK | Engagement scroll. |
-| Wall of masks asimétrico (collage) | ✅ ref-utopia-04 | ✅ Adoptado | Reemplaza grid uniforme fallida en iteración E. |
+| Wall of masks asimétrico (collage) | ✅ ref-utopia-04 | ✅ Adoptado · es uno de los patrones más fuertes para CK | Reemplaza grid uniforme fallida en iteración E. Funciona perfecto para presentar las 6 máscaras. |
 | Frame brackets ASCII reales | ✅ ubicuos | ✅ Adoptado | Detalle definitorio. |
 | Bracket CTAs `[ TEXT ]` | ✅ ubicuos | ✅ Adoptado | Reemplaza `<button>` plano. |
 | HUD details (coords, version, hash) | ✅ ubicuos | ✅ Adoptado, ficción CK | Densidad atmosférica. |
-| Marquee recursivo inferior | ✅ en algunas secciones | ✅ Adoptado | Pattern. |
+| Marquee recursivo inferior | ✅ en algunas secciones | ✅ Adoptado · usar en hero y closing | Pattern. |
 | Tag VERSION + build hash | ✅ `VERSION: 2.0.0-RC.1` | ✅ `V.YY.MM · BUILD · 0xXXXXXX` (date-based) | Funciona narrativamente. |
 | Globe icons esquinas | ✅ en kanji section | ✅ Adoptado, símbolo geom propio | Brand mark. |
+| Featured mask hero individual con kanji | ✅ ref-utopia-02/03 (HANNYA gigante + kanji 想郷 lateral) | ✅ Adoptado en sección 4 home (§ 8.1.4) | Pieza protagónica para destacar producto del día. |
 
 ### 2.5 Lo que NO clonar de Utopia (con justificación)
 
@@ -342,16 +357,22 @@ Utopia abre con un `EXPERIENCE WARNING` modal que pide elegir entre `[ USE SAFE 
 |---|---|---|
 | 🚫 Modal disclaimer `EXPERIENCE WARNING` inicial | Sí | Es ficción narrativa propia de Utopia (ironía sobre vigilancia). En CK rompe el flujo académico. |
 | 🚫 Preloader 3-5s con katanas + LOADING repeat | Sí | Mata Lighthouse perf ≥ 80 mobile. |
-| 🚫 Render 3D fotográfico de máscaras | Sí (avif assets) | CK no tiene presupuesto de render 3D. Usamos SVG ilustrado por tipo (kitsune, oni, karasu, neko, sakura, ronin). |
+| 🚫 Sección kanji 東京 monumental + scrambled words | Sí (`ref-utopia-05`) | **Descartada en Opción C** — sección con peso visual desproporcionado al contenido funcional. El patrón de kanji se conserva solo como decoración esquinera ocasional (R22). |
+| 🚫 Manifesto quote "El circuito te lee. Te asigna un distrito. Te devuelve una señal." | Sí (paráfrasis de Utopia) | **Descartada en Opción C** — frase importada. CK no usa quote section como sección protagónica. |
+| 🚫 Frase scrambled words `MASKZ → MASKS` o paráfrasis CK | Sí | **Descartada en Opción C** — funcionalidad sin valor narrativo claro para CK. El efecto scramble queda como **post-MVP candidate** (§ 14.5). |
+| 🚫 Eclipse circle composicional sobre kanji | Sí | **Descartada en Opción C** — composición específica de Utopia que no aporta a CK. |
+| 🚫 Tagline literal traducida `MARCADO. ASIGNADO. DEVUELTO.` | Sí | **Descartada en Opción C** — traducción literal. CK usa retórica propia: `CADA NOCHE. UNA MÁSCARA. UN DISTRITO.` (R59 reformulada). |
+| 🚫 Render 3D fotográfico de máscaras | Sí (avif assets) | CK usa **fotografías de máscaras tradicionales japonesas cyberpunk** subidas por el cliente (WebP en `public/images/products/{slug}.webp`). |
 | 🚫 Glitch RGB-shift sobre TODA imagen | Sí en las máscaras | Demasiado pesado visualmente. CK lo aplica solo en hero featured y solo como filter sutil. |
 | 🚫 Cyan secundario (`TOKUV`, `WHEIR`) | Sí en scramble | El cyan en Utopia es artefacto de filter, no de paleta. CK no agrega 5to color. |
-| 🚫 Botón `[ RANDOM SELECTION ]` con animación de selección dramática | Sí | Funcional implementarlo, pero el TP no requiere randomness gameificada. CK simplifica. |
-| 🚫 `Webflow` como stack (no aplica) | Webflow CMS | CK es Laravel + Blade. |
+| 🚫 Botón `[ RANDOM SELECTION ]` con animación dramática | Sí | Funcional pero no aporta. Si se quiere, queda como link plano `selección aleatoria` (§ 14.5). |
+| 🚫 `Webflow` como stack | Webflow CMS | CK es Laravel + Blade. |
 | 🚫 Versión `2.0.0-RC.1` mostrada literal | Sí | CK usa fecha del año + hash diario, no semver. |
 | 🚫 Múltiples languages toggle (`JPN/EN`) | Sí | CK es solo español. |
 | 🚫 PP Neue Montreal subtitle font | Sí (2 usos) | Innecesario para CK; su rol lo cumple Inter. |
 | 🚫 Neopixel font como secundario pixel | Sí (49 usos) | CK usa solo VT323; agregar Neopixel sería inflar familias. |
 | 🚫 Nombres de máscara en inglés (Hannya, Kappa, Tengu) | Sí | CK ya tiene 6 máscaras seeded con nombres en español: Kitsune-01, Oni-09, Karasu-07, etc. |
+| 🚫 Estructura del home idéntica al flow de Utopia (manifesto → kanji → wall → featured → closing) | Sí | **Descartada en Opción C** — CK tiene 8 secciones propias (§ 8.1) con orden distinto y 3 secciones nuevas (stats globales, mapa de distritos, última transmisión). |
 
 ### 2.6 Diferencias estructurales · CK no es Utopia
 
@@ -434,7 +455,15 @@ Estas diferencias condicionan cómo trasladamos los patrones:
 - **Lección**: sobre block-ember, el scan-grid debe tener **alpha 0.45+** y dots de 2px+ con alpha 0.95 para que se lea.
 - **🚫 Nunca**: scan-grid ash al 4% sobre rojo. Sobre rojo, scan-grid usa ink al 45%+.
 
-### 3.8 Patrones anti-pattern de proceso
+### 3.8 Iteración H · "brief v2 sesgado a clone" (corregido en v3)
+
+- **Síntoma del cliente**: *"el brief es para hacer un clone o hacer algo desde 0 pero con la estética de Utopia?"*
+- **Causa raíz**: el brief v2 replicó la estructura exacta del home de Utopia (manifesto → kanji monumental → wall → featured → closing) + traducción literal de tagline (`MASKED.MARKED.WATCHED.` → `MARCADO.ASIGNADO.DEVUELTO.`) + paráfrasis de la frase scrambled. El resultado se leía como "Utopia con marca cambiada", no como producto propio.
+- **Lección**: cuando se elige una referencia visual fuerte, hay que **distinguir entre idioma estético compartido y arquitectura específica**. CK puede compartir paleta + tipografía + densidad atmosférica + brutalismo con Utopia y aún así tener arquitectura propia. La opción C ratificada significa: tomar el lenguaje, descartar el flow, agregar secciones nuevas que justifiquen la existencia del proyecto como producto distinto.
+- **🚫 Nunca**: importar la estructura completa de un sitio referencia. Tomar patrones específicos sí, replicar el flujo entero no.
+- **🚫 Nunca**: traducir literalmente taglines / textos de la referencia. Usar retórica propia.
+
+### 3.9 Patrones anti-pattern de proceso
 
 Estos errores NO fueron de implementación visual sino de **proceso de trabajo**. Costaron muchas horas y tokens de iteración.
 
@@ -552,10 +581,11 @@ Si necesitás un peso intermedio, usar la familia que sí lo ofrece.
 - line-height: `1.4`.
 - weight: `400`.
 
-**R22**. **CJK Shippori Mincho B1** uso permitido:
-- **Monumental** (escala viewport): `font-size: clamp(8rem, 28vw, 28rem); line-height: 0.85;`
-- **Sutil esquinero** (decoración fragment): `font-size: clamp(6rem, 14vw, 14rem); opacity: 0.25;`
-- **Inline en feed** (números 壱 弐 参): `font-size: clamp(2rem, 3vw, 3rem); color: ember;`
+**R22**. **CJK Shippori Mincho B1** uso permitido (Opción C):
+- **Sutil esquinero** (decoración fragment en sección quote o aside): `font-size: clamp(6rem, 14vw, 14rem); opacity: 0.25; color: bone-dim`. Este es el uso default en CK.
+- **Inline en feed** (números 壱 弐 参 肆 伍): `font-size: clamp(2rem, 3vw, 3rem); color: ember;`.
+- **Individual en featured-mask hero** (sección 4 home): un kanji por máscara protagonizando la composición — `狐` (kitsune), `鬼` (oni), `烏` (karasu), `猫` (neko), `桜` (sakura), `浪` (ronin). Tamaño `clamp(14rem, 36vw, 36rem)`, color ember 33% opacity como fondo del retrato, NO sección protagónica completa.
+- **🚫 No** sección kanji monumental como capítulo del home (descartado en Opción C — era patrón de Utopia replicado).
 - **🚫 No** usar Shippori para body. **🚫 No** usar Shippori en mono labels.
 
 **R23**. **Uppercase es obligatorio en**:
@@ -689,7 +719,11 @@ aspect-ratio: 3 / 4;
 
 **R58**. **Bracket CTAs literal**: el bracket de cada CTA es real, no `<button>` con `border`. Patrón: `[ TEXT ]` con corner brackets ASCII (`╔ ╗ ╚ ╝` o pseudo-elementos con border-top + border-side de 14px).
 
-**R59**. **Tres-líneas manifesto** (tagline cortante): patrón Utopia `MASKED. MARKED. WATCHED.` traducido a CK `MARCADO. ASIGNADO. DEVUELTO.` o variantes contextuales (en closing: `MARCÁ. ELEGÍ. VOLVÉ.`). 3 palabras, 3 líneas separadas, dot ember al final de cada palabra.
+**R59**. **Tres-líneas manifesto cortante** · retórica propia, NO traducción literal. CK usa:
+- **Hero**: `CADA NOCHE. UNA MÁSCARA. UN DISTRITO.` (3 frases cortas, descriptivas del producto, NO traducción de Utopia).
+- **Closing**: `ELEGÍ TU TURNO. ABRÍ TU SEÑAL. ENTRÁ AL CIRCUITO.` (3 imperativos en voseo, retórica propia).
+- 3 frases cortas, separadas en 3 líneas, **dot ember al final de cada frase**, todas en display-md uppercase.
+- **🚫 No** taglines copiadas literal de Utopia. **🚫 No** `MARCADO. ASIGNADO. DEVUELTO.` (era v2 sesgado a clone, descartado en v3).
 
 **R60**. **Carrito honesto**: la copy dice literalmente *"el carrito se abre en la próxima fase del circuito"* — nunca *"próximamente"* genérico, nunca *"reserva tu lugar"* engañoso.
 
@@ -1588,33 +1622,38 @@ En `@media (hover: none)`:
 
 ## 8. Contenido por página
 
-> 5 páginas, cada una con sus secciones cerradas. La home concentra 6 secciones; las otras 4 son simplificaciones temáticas.
+> 5 páginas, cada una con sus secciones cerradas. **La home concentra 8 secciones (Opción C)**; las otras 4 vistas son simplificaciones temáticas.
 
 ### 8.1 Home `/` · `home.blade.php`
 
-Layout de 7 secciones secuenciales (incluyendo header fixed y footer compacto):
+**Estructura cerrada de 8 secciones (Opción C)**:
 
 ```
 [ HEADER FIXED ]
-[ SECCIÓN 1 · HERO BLOCK-EMBER ]
-[ SECCIÓN 2 · MANIFESTO QUOTE BLOCK-INK ]
-[ SECCIÓN 3 · KANJI MONUMENTAL + SCRAMBLED WORDS BLOCK-INK ]
-[ SECCIÓN 4 · WALL OF IDENTITIES BLOCK-INK ]
-[ SECCIÓN 5 · FEATURED MASK HERO BLOCK-INK ]
-[ SECCIÓN 6 · FEED TRANSMISIONES BLOCK-INK ]
-[ SECCIÓN 7 · CLOSING BLOCK-EMBER ]
+[ SECCIÓN 1 · HERO BLOCK-EMBER ]                — manifesto + retrato KITSUNE-01
+[ SECCIÓN 2 · STATS GLOBALES BLOCK-INK ]        — franja con 4 números agregados (PROPIO CK)
+[ SECCIÓN 3 · WALL ASIMÉTRICO BLOCK-INK ]       — collage de las 6 máscaras
+[ SECCIÓN 4 · FEATURED MASK HERO BLOCK-INK ]    — máscara del día con kanji individual
+[ SECCIÓN 5 · MAPA DE DISTRITOS BLOCK-INK ]     — grid 2×3 territorial (PROPIO CK)
+[ SECCIÓN 6 · ÚLTIMA TRANSMISIÓN BLOCK-INK ]    — 1 destacada full-width (PROPIO CK)
+[ SECCIÓN 7 · FEED 3 TRANSMISIONES BLOCK-INK ]  — feed simplificado
+[ SECCIÓN 8 · CLOSING BLOCK-EMBER ]             — manifesto cierre + 2 CTAs
 [ FOOTER COMPACTO ]
 ```
+
+**🚫 NO**: secciones que el brief v2 incluía y v3 descarta:
+- ❌ Manifesto Quote (era importada de Utopia)
+- ❌ Kanji 狐 monumental + scrambled words (era patrón importado de Utopia, sin valor narrativo claro para CK)
 
 #### 8.1.1 Sección 1 · Hero (block-ember)
 
 **Layout**: edge-to-edge bg ember, flex row (lg+) o column (mobile).
 
-**Top status bar** (dentro del hero, no es header fixed):
+**Top status bar** (dentro del hero, padding-top suficiente para no chocar con header fixed):
 ```
 ●  NODE · KITSUNE · 35.6762°N · 139.6503°E   [ INGRESO · 02:45 JST ]   V.26.05 · BUILD · 0xD4FF5B
 ```
-Mono uppercase, color ink puro, padding-top suficiente para no chocar con header fixed.
+Mono VT323 uppercase, color ink puro (no alpha), border-bottom 1px ink al 20%.
 
 **Columna izquierda · manifesto**:
 ```
@@ -1622,194 +1661,285 @@ H1 (display-xl, ink, uppercase, 2 líneas):
   CIRCUITO
   KITSUNE
 
-Tagline (display-md, ink, 3 líneas separadas con dot ember al final):
-  MARCADO.
-  ASIGNADO.
-  DEVUELTO.
+Tagline propia CK (display-md, ink, 3 líneas con dot ember al final):
+  CADA NOCHE.
+  UNA MÁSCARA.
+  UN DISTRITO.
 
-Body (mono uppercase, ink):
-  monografías clandestinas iluminan los distritos nocturnos.
-  cada máscara guarda un fragmento de identidad. el circuito te lee,
-  te asigna un distrito y te devuelve una señal. la noche es la
-  única jurisdicción.
+Body (Inter weight 500, ink, no uppercase para legibilidad):
+  Tienda clandestina de máscaras del turno noche. Seis identidades,
+  seis distritos, una señal por máscara. El circuito asigna; vos
+  reservás antes de que cambie.
 
 CTAs (bracket-cta variants):
-  [ >_ ENTRAR AL ARCHIVO → ]   [ SELECCIÓN ALEATORIA → ]
+  [ >_ ENTRAR AL ARCHIVO → ]   [ LEER TRANSMISIONES → ]
 ```
 
 **Columna derecha · retrato dominante**:
-- `<x-mask-portrait :product="$heroProduct" />` con frame brackets gruesos en color ink.
-- Width: `clamp(280px, 32vw, 620px)`.
-- Aspect-ratio: 3/4.
-- Meta arriba: `01 · 06` (ink mono) + `kitsune-01: zorro de neón` (ink mono).
-- Meta abajo: `id · 0xKSN001` + `signal · 87/99`.
+- `<x-mask-portrait :product="$heroProduct" />` con la imagen WebP real (KITSUNE-01).
+- Frame brackets gruesos color ink (`--bracket-color: var(--color-ink)`, `--bracket-size: clamp(20px, 2.4vw, 36px)`).
+- Width: `clamp(280px, 32vw, 620px)`. Aspect-ratio: 3/4.
+- Meta arriba (mono ink): `01 · 06   KITSUNE-01: ZORRO DE NEÓN`.
+- Meta abajo (mono ink): `id · 0xKSN001   ·   signal · 87/99   ·   shibuya static`.
 
-**Atmósfera**:
-- `scan-grid--ink` (líneas + dots negros sobre rojo).
-- Ambient letters scattered en bg: `k i t s u n` izquierda, `[loading] o b s e [loading]` derecha. Color ink puro, mono pequeño.
+**Atmósfera del hero**:
+- `scan-grid--ink` (líneas + dots negros sobre rojo, R9).
+- Ambient letters scattered en bg `text-ink` puro: `k i t s u n` izquierda, `[loading] o b s e [loading]` derecha. Mono pequeño.
 - Marquee inferior recursivo:
   ```
-  · TURNO NOCHE ACTIVO · 06 IDENTIDADES DISPONIBLES · 35.6762°N · 139.6503°E · SEÑAL ABIERTA ·
+  · TURNO NOCHE ACTIVO · 06 IDENTIDADES · 04 DISPONIBLES · 35.6762°N · 139.6503°E · SEÑAL ABIERTA ·
   ```
 
 **🚫 No** glow rojo extra (la sección ya es rojo full).
 **🚫 No** retrato chico esquinero — retrato es protagonista.
+**🚫 No** tagline traducida `MARCADO. ASIGNADO. DEVUELTO.` (era v2 sesgado a clone).
 
-#### 8.1.2 Sección 2 · Manifesto Quote (block-ink)
+#### 8.1.2 Sección 2 · Stats globales del circuito (block-ink) · PROPIO CK
 
-**Layout**: edge-to-edge bg ink, min-height 60vh. Centro vertical.
-
-**Estructura**:
-```
-[ ▸ FRAGMENTO 001 ]   HASH: 0x92A492          (top-left + top-right corner)
-
-                     ┌─────────────────┐
-                     │ « EL CIRCUITO   │
-                     │   TE LEE.       │
-                     │   TE ASIGNA UN  │
-                     │   DISTRITO.     │
-                     │   TE DEVUELVE   │
-                     │   UNA SEÑAL. »  │
-                     └─────────────────┘
-
-           ▸ PROTOCOLO DE INGRESO · TRANSCRIPCIÓN
-
-                     [ kanji 壱 lateral derecho, sutil opacity 0.25 ]
-```
-
-- Quote: `<blockquote>` con `display-md` (Archivo Black uppercase), color bone.
-- Footer: `system-tag` con label.
-- Kanji `壱` esquinero derecho usando `t-kanji-corner` (color bone-dim, opacity 0.25).
-- Scan-grid sutil bg.
-
-#### 8.1.3 Sección 3 · Kanji monumental + scrambled words (block-ink)
-
-**Layout**: edge-to-edge bg ink, min-height 100dvh, centro absoluto del kanji.
+**Layout**: edge-to-edge bg ink, **min-height: auto** — es una franja compacta, no sección de viewport.
 
 **Estructura**:
 
 ```
-[ UTOPIA logo mini centro top ]
-[ globe mark izq ]                                            [ globe mark der ]
+[ borde superior ash ]
 
-[ ambient row top con palabras scrambled→clear:
-  ROSTROS · DEL · TURNO · MÁSCARAS · DEL · CIRCUITO · DONDE · PASADO ]
+▸ ESTADO DEL CIRCUITO · 35.6762°N · TURNO NOCHE
 
-                          ┌──────────────────┐
-                          │      狐          │   ← kanji-monumental ember
-                          │  (eclipse circle │
-                          │    central ink) │
-                          └──────────────────┘
+┌─ 06 ─────┐  ┌─ 04 ─────┐  ┌─ 11 ─────┐  ┌─ 05 ─────┐
+│ IDENTI-  │  │ DISPONI- │  │ NOCHES   │  │ SEÑALES  │
+│ DADES    │  │ BLES     │  │ ACTIVAS  │  │          │
+└──────────┘  └──────────┘  └──────────┘  └──────────┘
 
-[ ambient row bottom scrambled→clear:
-  Y · FUTURO · SE · CRUZAN · BAJO · SEÑAL · ABIERTA ]
-
-[ crosshair mini centro inferior ]
-[ marquee bottom: "FACES OF TIME · MASKS OF KITSUNE CIRCUIT · WHERE PAST AND FUTURE COLLIDE..." ]
+[ borde inferior ash ]
 ```
 
-- Kanji `狐` con `t-kanji-monumental`, color ember, line-height 0.85.
-- Eclipse circle: div absoluto centro 38% del width del kanji con `background: var(--color-ink); border-radius: 50%;`.
-- Ambient rows: flex space-between, `t-mono-sm`, color bone-dim, scramble JS-driven.
-- Counter top-right: `02 / 06 — CIRCUITO`.
+**Detalles**:
+- 4 stat-blocks horizontales en línea (mobile: grid 2×2).
+- Cada stat: número grande en `display-lg` color **ember** (no bone), label mono uppercase color **bone-dim** debajo.
+- Padding vertical: `clamp(2.5rem, 4vw, 4rem)`.
+- Border-top: 1px solid ash. Border-bottom: 1px solid ash.
+- Tag inicial top-left: `▸ ESTADO DEL CIRCUITO` system-tag con dot ember pulsante.
+- **🚫 No** glow, **🚫 no** scan-grid en esta sección — es minimalista, da peso sin saturar.
 
-#### 8.1.4 Sección 4 · Wall of identities (block-ink)
+**Datos** (cómputo desde el back):
+- `06 IDENTIDADES` = `Product::count()`
+- `04 DISPONIBLES` = `Product::available()->count()`
+- `11 NOCHES ACTIVAS` = decorativo fijo (representa el "calendario ficcional" del circuito)
+- `05 SEÑALES` = `Post::published()->count()`
 
-Ver R35 para grid layout.
+**Justificación**: aporta peso institucional al sitio sin sumar otra sección de viewport. Es el equivalente "data-density" de un dashboard de operador. NO existe en Utopia, es propio CK.
+
+#### 8.1.3 Sección 3 · Wall asimétrico (block-ink)
+
+Ver R35 para grid layout cerrado.
 
 **Estructura**:
 ```
 [ ▸ ARCHIVO · 06 IDENTIDADES ACTIVAS ]
-[ H2 display-lg: SELECCIÓN DE MÁSCARAS. ]
-[ body sm: cada cuadro es un expediente... ]
-[ HUD: cluster: 06/06 · node: KSN-124 · ▸ click para abrir expediente ]
+[ H2 display-lg: ARCHIVO DE MÁSCARAS. ]
+[ body sm Inter: cada cuadro es un expediente. cada bracket rojo señala
+  una identidad disponible esta noche. ]
+[ HUD top-right: cluster: 06/06 · node: KSN-124 · ▸ click para abrir ]
 
-[ COLLAGE ASIMÉTRICO de 6 cells ]
-  ┌─[KARASU]──┐  ┌──[KITSUNE-01]──┐  ┌─[ONI]─┐
-  │           │  │   FEATURED      │  │        │
-  │           │  │   con brackets │  │        │
-  └───────────┘  │   ember + plus  │  └────────┘
-  ┌──[NEKO]──┐   │                 │
-  │          │   └─────────────────┘  ┌─[RONIN]─┐
-  └──────────┘   ┌─[SAKURA]──┐        │         │
-                 └───────────┘         └─────────┘
+[ COLLAGE ASIMÉTRICO de 6 cells, ver R35 ]:
+  ┌─[KARASU-07]──┐  ┌──[KITSUNE-01]──┐  ┌─[ONI-09]─┐
+  │  violet glow │  │   FEATURED      │  │ red glow  │
+  │              │  │   brackets ember│  │           │
+  └──────────────┘  │   + plus arriba │  └───────────┘
+  ┌──[NEKO-03]──┐   │                 │
+  │  gold glow  │   └─────────────────┘  ┌─[RONIN-X]─┐
+  └─────────────┘   ┌─[SAKURA-404]┐      │ blue glow │
+                    │ magenta glow│      │           │
+                    └─────────────┘      └───────────┘
 
-[ ▸ CTAs: ARCHIVO COMPLETO ] · "los 6 expedientes están sincronizados con el turno noche"
+[ ▸ CTA: [ ARCHIVO COMPLETO → ] ]   [ HUD: "los 6 expedientes están sincronizados con el turno noche" ]
 ```
 
-Cells del collage tienen:
-- Glow del dominant_color del producto.
-- Tag mono `[CODE] [DISP/PROX/AGOT]` abajo.
-- ID mono `[CODE]` arriba derecha.
-- Hover: border ember, translateY -3px, glow más intenso.
-- Featured (KITSUNE-01): brackets ember externos `┌ ┐ └ ┘` + `+` arriba.
+Cells del collage:
+- Imagen WebP real del producto + glow del `dominant_color` (R10).
+- Tag mono `[CODE]` arriba derecha (color bone-dim, ember si activa).
+- Tag mono `[CODE] · [DISP/PROX/AGOT]` abajo (status corner mini).
+- Hover: border-ember, translateY -3px, glow más intenso.
+- Featured (KITSUNE-01): brackets ember externos `┌ ┐ └ ┘` + `+` arriba (R35).
 
-#### 8.1.5 Sección 5 · Featured Mask Hero (block-ink)
+**Click en cell** → `route('products.show', $product)`.
 
-**Layout**: edge-to-edge bg ink, min-height 100dvh.
+#### 8.1.4 Sección 4 · Featured Mask Hero (block-ink)
+
+**Layout**: edge-to-edge bg ink, min-height 100dvh. Layout interno: kanji individual gigante de fondo + 2 columnas overlay (info izq + retrato der).
 
 **Estructura**:
 ```
-[ top status: ● DESTACADA · TURNO NOCHE · ID: 0xKSN001          03 / 06 — FEATURED ]
+[ top status: ● DESTACADA · TURNO NOCHE · ID: 0xKSN001          04 / 08 — FEATURED ]
 
-[ glow radial cyan dominant detrás del retrato (30% opacity) ]
+[ glow radial cyan (dominant_color de KITSUNE-01) detrás del retrato · 30% opacity ]
 
-[ KANJI individual del producto, gigante centro ember:
+[ KANJI individual del producto, gigante centro ember 33% opacity:
   狐 (kitsune), 鬼 (oni), 烏 (karasu), 猫 (neko), 桜 (sakura), 浪 (ronin) ]
 
-[ overlay z-index encima del kanji:
-  Columna izq: H2 KITSUNE-01 / display-md ZORRO DE NEÓN. + body + meta + CTA
-  Columna der: <x-mask-portrait> con frame brackets bone, RGB-shift filter sutil ]
+[ overlay grid 12-col encima del kanji:
+  col-span 5 izq: H2 display-xl bone "KITSUNE-01"
+                  / display-md ember "ZORRO DE NEÓN."
+                  / body Inter bone-dim
+                  / meta mono · CTA bracket
+  col-span 7 der: <x-mask-portrait :product="$featured"> con frame brackets bone
+                  / RGB-shift filter sutil (drop-shadow ember + bone) ]
 
-[ stats abajo · 4 stat-blocks horizontales ]
-[ marquee bottom: "EXPEDIENTE DESTACADO · KSN-01 · DISTRITO 02..." ]
+[ 4 stat-blocks horizontales abajo ]
+[ marquee bottom: "EXPEDIENTE DESTACADO · KSN-01 · DISTRITO SHIBUYA STATIC · RARA DE SEÑAL · $42.000" ]
 ```
 
-#### 8.1.6 Sección 6 · Feed transmisiones (block-ink)
+**Detalles**:
+- Kanji individual: usa el mapa `dominant_color → kanji` definido en R22.
+- RGB-shift filter sobre el retrato: `filter: drop-shadow(-3px 0 var(--color-ember)) drop-shadow(3px 0 var(--color-bone));`. Aplica solo en hero featured (R-glitch).
+- CTA principal: `[ >_ ABRIR EXPEDIENTE → ]` con variant ember.
 
-**Estructura**: feed editorial 1 columna `max-width: 720px` centrado.
+#### 8.1.5 Sección 5 · Mapa de distritos (block-ink) · PROPIO CK
 
+**Layout**: edge-to-edge bg ink, padding vertical generoso. Grid 2×3 (mobile 1×6).
+
+**Estructura**:
 ```
-[ ▸ FEED ACTIVO · 03 SEÑALES DESTACADAS ]
-[ H2 display-lg: TRANSMITIENDO AHORA. ]
+[ ▸ TERRITORIOS · 06 DISTRITOS DEL CIRCUITO ]
+[ H2 display-lg: MAPA DEL CIRCUITO. ]
+[ body sm Inter: cada máscara opera en un distrito propio. la asignación
+  cambia con la noche. ]
 
-[ Lista de 3 transmisiones featured ]:
-  - kanji 壱 ember + tag mono [GUÍA · 4 MIN] + título display-md + excerpt + meta:
-    AUTOR · FECHA · HASH: 0xXXX · BLOCK: TX-XXX · ▓▓▓▓░░░░░░ (signal meter)
-  - kanji 弐 + ...
-  - kanji 参 + ...
-
-[ CTA bracket: [ ARCHIVO COMPLETO → ] ]
+[ Grid 2×3 desktop, 1×6 mobile ]:
+  ┌─ DISTRITO 01 ────────────┐  ┌─ DISTRITO 02 ────────────┐
+  │ 35.6580°N · 139.7016°E   │  │ 35.6939°N · 139.7038°E   │
+  │                          │  │                          │
+  │ SHIBUYA STATIC           │  │ AKAI GATE                │
+  │                          │  │                          │
+  │ KITSUNE-01 · ACTIVO ●    │  │ ONI-09 · ACTIVO ●        │
+  │ ┌ glow cyan sutil ┐      │  │ ┌ glow red sutil ┐       │
+  └──────────────────────────┘  └──────────────────────────┘
+  ┌─ DISTRITO 03 ────────────┐  ┌─ DISTRITO 04 ────────────┐
+  │ CROWLINE TOWERS · KRS-07 │  │ MANEKI ALLEY · NKO-03    │
+  └──────────────────────────┘  └──────────────────────────┘
+  ┌─ DISTRITO 05 ────────────┐  ┌─ DISTRITO 06 ────────────┐
+  │ HANAMI GRID · SKR-404    │  │ LAST TRAIN LOOP · RNX-00 │
+  └──────────────────────────┘  └──────────────────────────┘
 ```
 
-#### 8.1.7 Sección 7 · Closing (block-ember)
+**Cada cell del mapa**:
+- Frame brackets bone (`--bracket-color: var(--color-bone)`).
+- Top: `▸ DISTRITO 0N` mono uppercase + coords ficticias en el formato `XX.XXXX°N · XXX.XXXX°E`.
+- Centro: nombre del distrito en `display-md` bone, uppercase.
+- Bottom: `[CODE] · [STATUS]` con dot ember si activo, ash si cerrado.
+- Glow del dominant_color del producto asociado, sutil (15% opacity).
+- Hover: border-ember + glow intensifica + translate-y -3px.
+- Click → `/productos/{slug}` del producto del distrito.
 
-**Layout**: edge-to-edge bg ember, min-height 90vh, centro.
+**Datos de distritos** (ya seedeados en `Product::district`):
+- `Shibuya Static` (Kitsune-01, cyan)
+- `Akai Gate` (Oni-09, red)
+- `Crowline Towers` (Karasu-07, violet)
+- `Maneki Alley` (Neko-03, gold)
+- `Hanami Grid` (Sakura-404, magenta)
+- `Last Train Loop` (Ronin-X, blue)
+
+**Coordenadas ficticias** generadas a partir del slug (deterministas):
+```php
+$lat = 35.65 + (crc32($product->slug) % 10000) / 100000;
+$lng = 139.70 + (crc32($product->slug) % 10000) / 100000;
+```
+
+**Justificación**: aporta dimensión territorial/geográfica al producto. Diferencia el wall (objeto-céntrico) del mapa (geo-céntrico). NO existe en Utopia.
+
+#### 8.1.6 Sección 6 · Última transmisión destacada (block-ink) · PROPIO CK
+
+**Layout**: edge-to-edge bg ink, padding vertical generoso. Bloque protagónico full-width (no es lista).
+
+**Estructura**:
+```
+[ ▸ ÚLTIMA SEÑAL · INTERCEPTADA HACE 4 H ]
+
+[ Layout 2 columnas desktop / 1 mobile ]:
+
+  Columna izq (col-span 7):
+    ┌─ Tag mono: [GUÍA · 4 MIN DE LECTURA] · HASH: 0xXXX · BLOCK: TX-XXX
+    │
+    │ H2 display-lg: CÓMO ELEGIR TU PRIMERA MÁSCARA.
+    │
+    │ p Inter body-lg bone-dim:
+    │   excerpt completo (3-4 líneas)
+    │
+    │ Meta mono uppercase: ARCHIVO KITSUNE · 03/05/2026 · SEÑAL 87/99
+    │
+    │ CTA: [ >_ LEER COMPLETA → ]
+    └
+
+  Columna der (col-span 5):
+    ┌ Bloque visual decorativo (frame brackets ember + scan-grid mini):
+    │   Kanji 信 (señal) gigante en el centro · ember 25% opacity
+    │   Crosshair `+` superior
+    └
+```
+
+**Detalles**:
+- La transmisión mostrada es `Post::published()->latest('published_at')->first()`.
+- Glow ember sutil bottom de la sección (radial-gradient, opacity 0.15).
+- Border-top + border-bottom 1px ash que separan de las secciones adyacentes.
+
+**Justificación**: en lugar de mostrar 3 transmisiones chiquitas (feed estándar), CK destaca 1 sola con peso editorial. Refuerza la narrativa de "señal interceptada". NO existe en Utopia (que solo tiene wall + featured).
+
+#### 8.1.7 Sección 7 · Feed 3 transmisiones (block-ink) · simplificado
+
+**Layout**: 1 columna `max-width: 720px` centrada. Es feed estándar minimalista.
+
+**Estructura**:
+```
+[ ▸ MÁS SEÑALES · 02 RESTANTES EN FEED ]
+[ H2 display-md: OTRAS TRANSMISIONES. ]
+
+[ Lista de 2 entradas ] (las restantes después de la última destacada en § 8.1.6):
+  - kanji 弐 ember + tag mono [SISTEMA · 5 MIN] + título display-md bone
+    + excerpt 1 línea + meta mono
+  - kanji 参 ember + tag mono [NOVEDADES · 6 MIN] + título + excerpt + meta
+
+[ CTA: [ >_ ARCHIVO COMPLETO DE TRANSMISIONES → ] ]
+```
+
+**Notas**:
+- Fórmula: muestra `Post::published()->latest('published_at')->skip(1)->take(2)->get()` (skip(1) para no repetir la destacada de § 8.1.6).
+- Si hay menos de 3 posts publicados, muestra todos los disponibles excepto la destacada.
+- Sin frame brackets en cells del feed — son entradas tipográficas, no cells visuales.
+- Border-bottom 1px ash entre entradas.
+
+#### 8.1.8 Sección 8 · Closing (block-ember)
+
+**Layout**: edge-to-edge bg ember, min-height 90vh, centro absoluto.
 
 **Estructura**:
 ```
 [ kanji 終 sutil top center ash ]
 
-[ H2 display-xl ink uppercase:
-  ELEGÍ UNA.
-  ANTES DE QUE
-  LA SEÑAL CAMBIE. ]
+[ H2 display-xl ink uppercase, 3 líneas:
+  ELEGÍ TU TURNO.
+  ABRÍ TU SEÑAL.
+  ENTRÁ AL CIRCUITO. ]
 
-[ Tagline 3 líneas display-md ink:
-  MARCÁ.
-  ELEGÍ.
-  VOLVÉ. ]
+[ body sm Inter ink, max-w 60ch:
+  La noche es la única jurisdicción. Cada máscara es una entrada.
+  El carrito se abre en la próxima fase. ]
 
 [ CTAs:
   [ >_ ABRIR EL ARCHIVO → ] [ LEER TRANSMISIONES → ] ]
 
 [ marquee bottom recursivo:
-  TURNO NOCHE · IDENTIDAD ASIGNADA · SEÑAL ABIERTA · CIRCUITO KITSUNE ACTIVO ]
+  TURNO NOCHE · IDENTIDAD ASIGNADA · SEÑAL ABIERTA · CIRCUITO KITSUNE ACTIVO · 35.6762°N · 139.6503°E ]
 ```
 
-#### 8.1.8 Footer compacto
+**Detalles**:
+- Tagline en H2 con retórica propia CK (3 imperativos voseo, no traducción de Utopia).
+- 2 CTAs ink sobre ember.
+- Marquee inferior con texto recursivo (sin traducir de Utopia).
+- Glow ember bottom (50% opacity radial) sutil para anclar la sección.
 
-3 columnas (Navegación / Coordenadas / Aviso) + bottom row con copyright + hash.
+#### 8.1.9 Footer compacto
+
+3 columnas (Navegación / Coordenadas / Aviso del carrito) + bottom row con copyright + hash diario decorativo. Ver § 6.3 para spec.
 
 ### 8.2 `/productos` · `products/index.blade.php`
 
@@ -2090,10 +2220,19 @@ Ver § 4.7 (R69-R76) para reglas operativas. Resumen:
 
 ### 12.6 Storytelling
 
-- [ ] Home: 7 secciones definidas, no más, no menos.
+- [ ] Home: **8 secciones definidas (Opción C)**, no más, no menos.
+- [ ] Hero: tagline propia CK `CADA NOCHE. UNA MÁSCARA. UN DISTRITO.`, no traducción literal de Utopia.
+- [ ] Stats globales: franja con 4 números agregados, border-y ash, propio CK.
+- [ ] Wall: collage asimétrico real (R35), featured KITSUNE-01 con brackets ember + plus.
+- [ ] Featured mask hero: kanji individual del producto + RGB-shift sutil.
+- [ ] Mapa de distritos: grid 2×3 con los 6 distritos seedeados, glow del dominant_color, propio CK.
+- [ ] Última transmisión: 1 bloque protagónico full-width, propio CK.
+- [ ] Feed transmisiones: 2 entradas restantes (skip 1 = la destacada de § 8.1.6).
+- [ ] Closing: block-ember invertido con manifesto propio CK + 2 CTAs.
 - [ ] Detalle producto: bg ink + glow del dominant_color, no full saturación.
 - [ ] Transmisiones: feed 1 columna max-w 760, no magazine asimétrico.
-- [ ] Closing: block-ember invertido con manifesto + 2 CTAs, sin full-vh vermillion abrupto.
+- [ ] **🚫 No** sección kanji 狐 monumental + scrambled words (descartada en v3).
+- [ ] **🚫 No** sección manifesto quote "El circuito te lee" (descartada en v3).
 
 ---
 
@@ -2157,32 +2296,42 @@ Conservadas localmente en:
 ### 14.3 Glosario
 
 - **Block** — `<section>` con bg edge-to-edge en uno de 2 modos (ink o ember).
-- **Manifesto** — display brutalista uppercase como sección dominante.
-- **HUD** — UI técnico (status corner, hash, coords, version).
-- **Marquee** — línea horizontal recursiva.
-- **Scrambled** — palabra con chars swap que se descifra en scroll.
-- **Bracket CTA** — botón con corner brackets ASCII.
-- **Frame brackets** — marcas de esquina en retratos/cells.
-- **Wall** — collage asimétrico de máscaras.
-- **Featured** — la máscara protagonista (KITSUNE-01) con tratamiento ember.
-- **Eclipse circle** — círculo del color del bg superpuesto al kanji monumental.
+- **Manifesto** — display brutalista uppercase como sección dominante (hero o closing).
+- **HUD** — UI técnico (status corner, hash, coords, version, signal meter).
+- **Marquee** — línea horizontal recursiva con texto en mono.
+- **Bracket CTA** — botón con corner brackets ASCII (ver § 6.5).
+- **Frame brackets** — marcas de esquina en retratos / cells (ver § 6.9).
+- **Wall** — collage asimétrico de las 6 máscaras (ver § 8.1.3 + R35).
+- **Featured** — la máscara protagonista del día (KITSUNE-01) con tratamiento ember + kanji individual.
+- **Stats globales** — franja con 4 números agregados (§ 8.1.2), propio CK.
+- **Mapa de distritos** — grid 2×3 territorial con los 6 distritos seedeados (§ 8.1.5), propio CK.
+- **Última transmisión** — bloque protagónico full-width destacando la última señal publicada (§ 8.1.6), propio CK.
+- **Scrambled** *(post-MVP)* — palabra con chars swap que se descifra en scroll. Descartado en Opción C como sección, queda como candidato (§ 14.5).
+- **Eclipse circle** *(no aplica en CK)* — círculo del color del bg superpuesto al kanji monumental. Composición específica de Utopia, descartada en Opción C.
 
 ### 14.4 Registro de modificaciones al brief
 
 | Fecha | Sección | Cambio | Motivo |
 |---|---|---|---|
 | 2026-05-05 | v2.0 inicial | Redacción completa post-reset | 5 iteraciones acumuladas + reset destructivo. Brief redactado tras reset desde 0. |
+| 2026-05-05 | v3.0 (Opción C) | Reescritura de § 1.4 / § 2.4 / § 2.5 / § 3.8 / R22 / R59 / § 8.1 completo | Cliente identificó que el v2 estaba sesgado a clone literal de Utopia. v3 ratifica Opción C: tomar de Utopia el lenguaje visual (paleta, tipografía, densidad atmosférica), descartar el flow exacto del home + tagline traducida + frase scrambled + sección kanji monumental, agregar 3 secciones propias CK (stats globales § 8.1.2, mapa de distritos § 8.1.5, última transmisión destacada § 8.1.6). Imágenes WebP de las 6 máscaras subidas por el cliente y validadas (`hasImage()` = true para los 6 productos). |
 
 ### 14.5 Candidatos post-MVP
 
-Ideas que aparecieron durante iteraciones previas pero NO entran en este brief. Documentadas para no perderlas, **NO IMPLEMENTAR sin aprobación explícita**:
+Ideas que aparecieron durante iteraciones previas pero NO entran en este brief. Documentadas para no perderlas, **NO IMPLEMENTAR sin aprobación explícita del cliente**:
 
-- Cursor custom dot+ring con mix-blend-difference.
-- Boot loader micro-overture (< 1s en primera visita con sessionStorage flag).
-- Glitch char-scramble en hover de CTAs.
-- Hash random que se actualiza cada hora.
-- Ambient floating letters en sección 3 con física parallax.
-- Shader/canvas custom para la sección kanji.
+- **Cursor custom dot+ring** con `mix-blend-mode: difference`. Solo si todas las páginas están terminadas y queda tiempo.
+- **Boot loader micro-overture** (< 1s en primera visita con `sessionStorage` flag).
+- **Glitch char-scramble** en hover de CTAs.
+- **Frase scrambled words** estilo Utopia (`MASKZ → MASKS`) — descartado de v3, queda como candidato visual si el cliente quiere recuperarlo.
+- **Hash random** que se actualiza cada hora (vs por día como está).
+- **Ambient floating letters** en sección hero con física parallax (los chars `k i t s u n` reaccionan al mousemove).
+- **Botón `[ SELECCIÓN ALEATORIA ]`** en hero con animación de selección dramática estilo Utopia.
+- **Calendario de turnos** — qué máscara está activa en qué noche del mes (decorativo).
+- **Test de identidad** — 3 preguntas con resultado pseudo-random que sugiere una máscara.
+- **Filtro `?ordenar=` adicional** al `?filter=` actual del catálogo.
+- **Compartir transmisión** con preview Twitter/OG meta tags.
+- **RSS feed** de transmisiones.
 
 ---
 
