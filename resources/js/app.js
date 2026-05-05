@@ -1,15 +1,42 @@
 import './bootstrap';
 import Alpine from 'alpinejs';
+import Lenis from 'lenis';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+window.gsap = gsap;
+window.ScrollTrigger = ScrollTrigger;
 
 window.Alpine = Alpine;
 Alpine.start();
 
-// ════════════════════════════════════════════════════════════════════
-//  CUSTOM CURSOR · dot + ring
-// ════════════════════════════════════════════════════════════════════
-const supportsHover = window.matchMedia('(hover: hover)').matches;
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const supportsHover = window.matchMedia('(hover: hover)').matches;
 
+// ──────────────────────────────────────────────────────────────────────
+// LENIS · smooth scroll (§2.4) — desactivado bajo reduced-motion
+// ──────────────────────────────────────────────────────────────────────
+if (!reducedMotion) {
+    const lenis = new Lenis({
+        duration: 1.1,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+    });
+
+    lenis.on('scroll', ScrollTrigger.update);
+
+    gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+    });
+    gsap.ticker.lagSmoothing(0);
+
+    window.lenis = lenis;
+}
+
+// ──────────────────────────────────────────────────────────────────────
+// CURSOR CUSTOM (§2.5)
+// ──────────────────────────────────────────────────────────────────────
 if (supportsHover && !reducedMotion) {
     const dot = document.createElement('div');
     dot.className = 'ck-cursor-dot';
@@ -22,179 +49,184 @@ if (supportsHover && !reducedMotion) {
     document.body.appendChild(ring);
     document.body.appendChild(dot);
 
-    let pointerX = window.innerWidth / 2;
-    let pointerY = window.innerHeight / 2;
-    let dotX = pointerX;
-    let dotY = pointerY;
-    let ringX = pointerX;
-    let ringY = pointerY;
+    let pX = window.innerWidth / 2;
+    let pY = window.innerHeight / 2;
+    let dX = pX, dY = pY, rX = pX, rY = pY;
 
     window.addEventListener('pointermove', (e) => {
-        pointerX = e.clientX;
-        pointerY = e.clientY;
+        pX = e.clientX;
+        pY = e.clientY;
     });
 
     const tick = () => {
-        dotX += (pointerX - dotX) * 0.32;
-        dotY += (pointerY - dotY) * 0.32;
-        dot.style.transform = `translate(${dotX}px, ${dotY}px) translate(-50%, -50%)`;
+        dX += (pX - dX) * 0.32;
+        dY += (pY - dY) * 0.32;
+        dot.style.transform = `translate(${dX}px, ${dY}px) translate(-50%, -50%)`;
 
-        ringX += (pointerX - ringX) * 0.12;
-        ringY += (pointerY - ringY) * 0.12;
-        ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+        rX += (pX - rX) * 0.12;
+        rY += (pY - rY) * 0.12;
+        ring.style.transform = `translate(${rX}px, ${rY}px) translate(-50%, -50%)`;
 
         requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
 
-    const hoverSelector = 'a, button, [data-cursor="big"], .masthead-line';
+    const hoverable = 'a, button, [data-cursor="big"]';
     document.addEventListener('mouseover', (e) => {
-        if (e.target.closest(hoverSelector)) {
+        if (e.target.closest(hoverable)) {
             dot.classList.add('ck-cursor-dot--big');
             ring.classList.add('ck-cursor-ring--big');
         }
     });
     document.addEventListener('mouseout', (e) => {
-        if (e.target.closest(hoverSelector)) {
+        if (e.target.closest(hoverable)) {
             dot.classList.remove('ck-cursor-dot--big');
             ring.classList.remove('ck-cursor-ring--big');
         }
     });
 }
 
-// ════════════════════════════════════════════════════════════════════
-//  WORD REVEAL · auto-split text in [data-words] then stagger
-// ════════════════════════════════════════════════════════════════════
-const splitWords = () => {
-    document.querySelectorAll('[data-words]:not([data-words-ready])').forEach((el) => {
-        const html = el.innerHTML;
-        // Split at whitespace boundaries while preserving inline HTML tags as units
-        const tmp = document.createElement('div');
-        tmp.innerHTML = html;
-        const out = [];
-        const walk = (node) => {
-            if (node.nodeType === Node.TEXT_NODE) {
-                const parts = node.textContent.split(/(\s+)/);
-                for (const p of parts) {
-                    if (p.trim() === '') {
-                        out.push(document.createTextNode(p));
-                    } else {
-                        const span = document.createElement('span');
-                        span.className = 'word';
-                        span.textContent = p;
-                        out.push(span);
-                    }
-                }
-            } else if (node.nodeType === Node.ELEMENT_NODE) {
-                // wrap whole inline element as a single word for stagger
-                const wrapper = document.createElement('span');
-                wrapper.className = 'word';
-                wrapper.appendChild(node.cloneNode(true));
-                out.push(wrapper);
-            }
-        };
-        Array.from(tmp.childNodes).forEach(walk);
-        el.innerHTML = '';
-        out.forEach((n) => el.appendChild(n));
-        el.classList.add('word-reveal');
-        el.setAttribute('data-words-ready', '');
-    });
-};
+// ──────────────────────────────────────────────────────────────────────
+// REVEAL · IntersectionObserver para [data-reveal] y [data-reveal-line]
+// ──────────────────────────────────────────────────────────────────────
+const initReveal = () => {
+    if (reducedMotion || !('IntersectionObserver' in window)) {
+        document.querySelectorAll('[data-reveal], [data-reveal-line]')
+            .forEach((el) => el.classList.add('is-visible'));
+        return;
+    }
 
-// ════════════════════════════════════════════════════════════════════
-//  REVEAL ON SCROLL · .reveal y .word-reveal vía IntersectionObserver
-// ════════════════════════════════════════════════════════════════════
-let revealObserver = null;
-if ('IntersectionObserver' in window && !reducedMotion) {
-    revealObserver = new IntersectionObserver(
+    const observer = new IntersectionObserver(
         (entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
-                    revealObserver.unobserve(entry.target);
+                    observer.unobserve(entry.target);
                 }
             });
         },
-        { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
-    );
-}
-
-const observeReveals = () => {
-    if (!revealObserver) {
-        document.querySelectorAll('.reveal, .word-reveal').forEach((el) => el.classList.add('is-visible'));
-        return;
-    }
-    document.querySelectorAll('.reveal:not(.is-visible), .word-reveal:not(.is-visible)').forEach((el) => {
-        revealObserver.observe(el);
-    });
-};
-
-// ════════════════════════════════════════════════════════════════════
-//  CHAPTER RAIL · indicador lateral del acto activo (home only)
-// ════════════════════════════════════════════════════════════════════
-const initChapterRail = () => {
-    const rail = document.querySelector('[data-chapter-rail]');
-    if (!rail) return;
-
-    const items = Array.from(rail.querySelectorAll('[data-chapter-key]'));
-    const sections = Array.from(document.querySelectorAll('[data-chapter]'));
-    if (sections.length === 0 || items.length === 0) return;
-
-    const activate = (key) => {
-        items.forEach((it) => {
-            it.classList.toggle('is-active', it.dataset.chapterKey === key);
-        });
-    };
-
-    if (!('IntersectionObserver' in window)) return;
-
-    const sectionObserver = new IntersectionObserver(
-        (entries) => {
-            // pick the entry with largest intersectionRatio currently intersecting
-            const intersecting = entries.filter((e) => e.isIntersecting);
-            if (intersecting.length === 0) return;
-            const top = intersecting.reduce((a, b) =>
-                a.intersectionRatio > b.intersectionRatio ? a : b
-            );
-            const key = top.target.dataset.chapter;
-            if (key) activate(key);
-        },
-        { threshold: [0.25, 0.5, 0.75], rootMargin: '-30% 0px -30% 0px' }
+        { threshold: 0.15, rootMargin: '0px 0px -8% 0px' }
     );
 
-    sections.forEach((s) => sectionObserver.observe(s));
-};
-
-// ════════════════════════════════════════════════════════════════════
-//  STATUS BAR · clock vivo
-// ════════════════════════════════════════════════════════════════════
-const tickClock = () => {
-    const el = document.querySelector('[data-status-clock]');
-    if (!el) return;
-    const now = new Date();
-    const hh = String(now.getHours()).padStart(2, '0');
-    const mm = String(now.getMinutes()).padStart(2, '0');
-    const ss = String(now.getSeconds()).padStart(2, '0');
-    el.textContent = `${hh}:${mm}:${ss}`;
-};
-
-const startClock = () => {
-    tickClock();
-    setInterval(tickClock, 1000);
-};
-
-// ════════════════════════════════════════════════════════════════════
-//  BOOT
-// ════════════════════════════════════════════════════════════════════
-const boot = () => {
-    splitWords();
-    observeReveals();
-    initChapterRail();
-    startClock();
+    document.querySelectorAll('[data-reveal], [data-reveal-line]')
+        .forEach((el) => observer.observe(el));
 };
 
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', boot);
+    document.addEventListener('DOMContentLoaded', initReveal);
 } else {
-    boot();
+    initReveal();
+}
+
+// ──────────────────────────────────────────────────────────────────────
+// BOOT LOADER · micro-overture <1s primera visita (sessionStorage flag)
+// ──────────────────────────────────────────────────────────────────────
+const initBootLoader = () => {
+    const el = document.querySelector('[data-boot-loader]');
+    if (!el) return;
+
+    const shouldSkip = reducedMotion || sessionStorage.getItem('ck-booted') === '1';
+    if (shouldSkip) {
+        el.classList.add('is-done');
+        return;
+    }
+
+    const percentEl = el.querySelector('[data-boot-percent]');
+    const fillEl = el.querySelector('[data-boot-fill]');
+
+    const start = performance.now();
+    const duration = 850;
+
+    const tick = (now) => {
+        const t = Math.min(1, (now - start) / duration);
+        // ease-out cubic
+        const eased = 1 - Math.pow(1 - t, 3);
+        const pct = Math.floor(eased * 100);
+        if (percentEl) percentEl.textContent = String(pct).padStart(2, '0');
+        if (fillEl) fillEl.style.transform = `scaleX(${eased})`;
+
+        if (t < 1) {
+            requestAnimationFrame(tick);
+        } else {
+            setTimeout(() => {
+                el.classList.add('is-done');
+                sessionStorage.setItem('ck-booted', '1');
+            }, 120);
+        }
+    };
+    requestAnimationFrame(tick);
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initBootLoader);
+} else {
+    initBootLoader();
+}
+
+// ──────────────────────────────────────────────────────────────────────
+// GLITCH SCRAMBLE · efecto puntual en hover de [data-glitch]
+// ──────────────────────────────────────────────────────────────────────
+const initGlitch = () => {
+    if (reducedMotion) return;
+
+    const chars = '!<>?#%&+=*0123456789';
+
+    const scramble = (el, target, duration = 360) => {
+        if (el.dataset.glitchRunning === '1') return;
+        el.dataset.glitchRunning = '1';
+        const start = performance.now();
+        const len = target.length;
+
+        const tick = (now) => {
+            const t = Math.min(1, (now - start) / duration);
+            const stable = Math.floor(t * len);
+            let out = target.substring(0, stable);
+            for (let i = stable; i < len; i++) {
+                const c = target[i];
+                if (c === ' ' || c === '\n') {
+                    out += c;
+                } else {
+                    out += chars[Math.floor(Math.random() * chars.length)];
+                }
+            }
+            el.textContent = out;
+            if (t < 1) {
+                requestAnimationFrame(tick);
+            } else {
+                el.textContent = target;
+                el.dataset.glitchRunning = '0';
+            }
+        };
+        requestAnimationFrame(tick);
+    };
+
+    document.querySelectorAll('[data-glitch]').forEach((el) => {
+        const target = el.textContent;
+        el.dataset.glitchTarget = target;
+        el.addEventListener('mouseenter', () => scramble(el, target, 320));
+    });
+
+    // glitch-flash one-shot al revelarse en viewport
+    if ('IntersectionObserver' in window) {
+        const flashObs = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        el.classList.add('is-glitching');
+                        setTimeout(() => el.classList.remove('is-glitching'), 420);
+                        flashObs.unobserve(el);
+                    }
+                });
+            },
+            { threshold: 0.5 }
+        );
+        document.querySelectorAll('[data-glitch-flash]').forEach((el) => flashObs.observe(el));
+    }
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initGlitch);
+} else {
+    initGlitch();
 }

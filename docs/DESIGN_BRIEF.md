@@ -5,6 +5,38 @@
 
 ---
 
+## 0.5 · APUNTES DE ITERACIÓN — leer antes de empezar a diseñar
+
+> Esta sección persiste entre sesiones. Cada iteración fallida deja una nota acá para no repetir el error.
+
+### Iteración A (2026-05-04) — sobre-corrección editorial sobria
+- **Síntoma**: el usuario dijo "muy genérica como para ir acorde con las máscaras" y "le falta cyberpunk en estética, no por colores".
+- **Causa raíz**: interpreté "japonés editorial nocturno sobrio" como **minimalismo Cormorant italic + Ma 間 + 1 acento sutil**. La referencia real (Utopia Tokyo) es **brutalista**: condensed bold uppercase, color blocks edge-to-edge, RGB split agresivo.
+- **Lección**: cuando el brief diga "japonés cyberpunk", default a brutalismo tipográfico **antes** de minimalismo editorial. El editorial entra como **contrapunto** (body, quote, prosa), no como master de UI.
+
+### Iteración B (2026-05-04) — análisis de Utopia Tokyo profundo (capturas reales)
+Capturas en `tmp-screenshots/ref-utopia-*.png`. Lo que asumí mal y la corrección:
+
+| Asunción mía | Realidad de Utopia | Corrección para CK |
+|---|---|---|
+| Paleta = 1 acento ember sutil + ink-deep + bone | **NEGRO + ROJO PURO + CYAN secundario + BLANCO**. Color blocks invertibles edge-to-edge. | Paleta CK ampliada a **rojo saturado + cyan RGB-split**, manteniendo bone como neutro. |
+| Display = Cormorant Garamond italic | **Sans-serif condensed bold geométrica** con cortes glitch (tipo Druk Wide / Bebas / GT Eesti). | Agregar **Bebas Neue** (Google) como display de manifesto. Cormorant queda solo para body italic + quote. |
+| Kanji = 1 char chiquito por sección | **Kanji DOMINANTE** ocupando casi todo el viewport (ej `東京`) como pieza visual masiva. | En al menos 1 sección del home, kanji `狐` o `面` a escala monumental. |
+| Ma 間 = whitespace generoso siempre | **Maximalismo tipográfico** en headings — el manifesto llena la pantalla. Whitespace queda para body. | En hero y closing: tipografía manifesto borde-a-borde. Body sigue con Ma. |
+| 1 capa atmosférica = grain | **Densidad atmosférica multi-capa**: scan-grid de puntos rojos + ambient chars flotantes + marquee inferior. Lo que importa es que cada capa tenga **un rol distinto** (no apilar redundantes). | Agregar marquee inferior recursivo + ambient letters scrambled en sección kanji. Mantener scan-grid sutil. |
+| Glitch puntual cosmético en hover | **Glitch estructural scrub-driven**: palabras que se DESENCRIPTAN con el scroll (`MASKZ → MASKS`, `TOKUV → TOKYO`, `FUTWVS → FUTURE`). | Agregar sección con frase clave que se descifra con scroll: `OBSERVADO · ASIGNADO · DEVUELTO`. |
+| Color = hint detrás del retrato | **Color block flat edge-to-edge**, alternando entre secciones (hero rojo → quote negro → archive negro → kanji rojo invertido). | Hero en rojo o color block alternable, no glow tímido. |
+| Brackets via border CSS | **Brackets ASCII reales** dibujados con char `┌ ┐ └ ┘` o pseudo-elementos pixel-perfect, más visibles. | Engrosar brackets, hacerlos protagonistas. |
+
+### Anti-patterns acumulados (NO repetir)
+1. **Sobre-amabilidad visual**: "queda sobrio" porque demasiado refinado. Cyberpunk pide carácter, no buen gusto.
+2. **Diluir el acento**: usar el rojo solo como hint chico (counter, hash key). El rojo en Utopia es **bloque masivo** o **letra dominante**.
+3. **Convertir kanji en decoración esquinera**: en Utopia el kanji es **estructura**, no ornamento.
+4. **Usar Cormorant para todo**: serif italic es contrapunto, no master.
+5. **Agregar marcaje técnico sin radicalidad**: brackets + hash + signal meters sin un H1 brutalista quedan como UI cosmético sobre layout sobrio.
+
+---
+
 ## 0. Contexto creativo
 
 **Producto**: tienda ficticia de máscaras japonesas cyberpunk. Cada máscara = identidad nocturna que abre un distrito del mercado.
@@ -29,15 +61,34 @@
 
 Estudios y sitios para cargar como referencia visual antes de diseñar:
 
+### REFERENCIA PRIMARIA — Utopia Tokyo
+- **Utopia Tokyo** — `https://www.utopiatokyo.com` — **referencia narrativa y atmosférica del proyecto**. Tienda ficcional de máscaras tradicionales japonesas presentadas como objetos de identidad bajo vigilancia. **Es el norte estético, no para clonar pero sí para alinear lenguaje.**
+  - **Tomar**:
+    - Tagline cortante de 3 palabras repetido como mantra (`MASKED. MARKED. WATCHED.`).
+    - Logo con letras destacadas (acentos selectivos en chars específicos, ej `U**T**O**P**IA**T**OK**Y**O`).
+    - HASH + BLOCK visibles en cada item (`HASH: 0xE5B28E`, `BLOCK: S-733`) → lenguaje de registro digital ficticio.
+    - Comandos terminal prominentes (`>_EXECUTE_CREATION` style) en CTAs y secciones de acción.
+    - Stats RPG/HUD explícitos (STRENGTH/AGILITY/VITALITY 1-10, no /100) con marcaje técnico.
+    - Botón **`[SELECCIÓN ALEATORIA]`** como interacción gamificada.
+    - Coordenadas y data visibles permanentemente (vigilancia ambiental).
+    - Espacios negativos monumentales alrededor de cada máscara — Ma 間.
+    - Fusión latín + kanji + símbolos técnicos (`>`, `[]`, `▓░`, `·`, `←→`).
+  - **Adaptar (no descartar, no clonar saturado)**:
+    - **Glitch puntual, no constante**: flash de char-shuffle solo en hover de CTAs y en el primer reveal del H1 del hero. Duración 300-400ms máx, easing rápido. Nunca scroll-permanente. Cortado por `prefers-reduced-motion`.
+    - **Micro-loading <1s en primera visita**: overlay `[ INGRESO · KITSUNE NODE · NN% ]` con counter rápido, fade-out total bajo 900ms, no bloquea LCP del contenido. Solo primera visita (sessionStorage flag). Skip total bajo `prefers-reduced-motion`.
+  - **Descartar**:
+    - Web3/blockchain real (nuestro circuito es ficción literaria, no NFT).
+    - Paleta de blanco puro (nosotros somos ink-deep + bone, ya decidido § 2.1).
+    - Glitch como wallpaper de fondo o aplicado a TODO el texto (rompe legibilidad académica).
+    - Loading screens largos (>1.5s) que penalicen Lighthouse perf ≥ 80.
+
 ### Awwwards SOTY 2025 + SOTD recientes
 - **Lando Norris (OFF+BRAND, SOTY 2025)** — `https://landonorris.com` y case study en `https://www.itsoffbrand.com/our-work/lando-norris`. **Tomar**: choreography de scroll, transitions sharp, bold typography. **Descartar**: WebGL helmet (fuera de scope), color verde lima (no es nuestra paleta).
 - **Active Theory v6** — `https://activetheory.net`. **Tomar**: pitch-black bg `#0B0B0B` con UN solo color de acento (`#A970FF` violeta) usado solo en CTAs y progress beads. Pillbox nav reactivo al scroll. Decision: **un solo acento de color, no cuatro**.
-- **Messenger (SOTY 2025)** — WebGL planet. **Descartar**: WebGL fuera de scope.
 
 ### Estudios japoneses contemporáneos
 - **Kenta Toshikura** (Garden Eight, Tokyo) — `https://kentatoshikura.com`. **Tomar**: typography como protagonista, interacciones tipográficas sutiles, layouts editoriales asimétricos.
 - **Utsubo** — `https://www.utsubo.com`. **Tomar**: Japanese sensibility con producción internacional, performance-first.
-- **Laboratories** (Tokyo) — typography japonesa como núcleo, no decoración.
 
 ### Storytelling scroll
 - **Codrops Nov 2025** — "How to Build Cinematic 3D Scroll Experiences with GSAP" (`https://tympanus.net/codrops/2025/11/19/how-to-build-cinematic-3d-scroll-experiences-with-gsap/`). **Tomar**: técnica de pinning + horizontal scroll + scrub.
@@ -54,24 +105,57 @@ Estudios y sitios para cargar como referencia visual antes de diseñar:
 
 ## 2. Sistema visual cerrado
 
-### 2.1 Paleta — REGLA: 1 color de acento, no 4
+### 2.1 Paleta — brutalismo invertible (Utopia adaptado)
 
 ```
---ink-deep:   #050608   /* fondo global, casi negro */
---ink:        #0F1218   /* paneles oscuros */
---ink-soft:   #1A1F2A   /* hover/elevated */
---bone:       #ECE6D6   /* texto principal */
---bone-dim:   #8A8576   /* texto secundario */
---ash:        #4A4439   /* divisores, líneas */
+--ink:        #0B0D14   /* fondo "negro" base, leve azulado */
+--ink-deep:   #050608   /* solo para overlays / fades extremos */
+--ink-soft:   #181B24   /* paneles elevados, hover bg */
+--bone:       #ECE6D6   /* texto principal sobre ink */
+--bone-dim:   #6B6D78   /* texto secundario, mono labels */
+--ash:        #2A2D38   /* divisores, brackets, líneas */
 
-/* ÚNICO color de acento — usar SOLO para foco/CTA/estado activo */
---ember:      #E63946   /* rojo bermellón japonés */
+/* PRIMARIO · rojo manifesto · usado en BLOQUES, no como hint */
+--ember:      #FF1A38   /* rojo sangre saturado */
+
+/* SECUNDARIO · cyan de RGB-split · solo glitch text */
+--cyan:       #6CE7E0   /* cyan complementario */
 ```
 
-**Regla operativa**:
-- 95% de la página = `--ink-deep` + `--bone`
-- Acentos = `--ember` SOLO en: link active, número de capítulo activo, subrayado de CTA primario, "online" status dot, drop cap inicial de un artículo.
-- **No mezclar** vermillion + cyan + magenta + gold como acento simultáneo. Eso fue uno de los errores de la fase visual.
+**Regla operativa revisada**:
+- **Color block edge-to-edge** permitido y preferido en al menos 2 secciones (hero o closing): bg `--ember` 100% del viewport con texto `--ink`.
+- En secciones bg `--ink`: `--ember` puede aparecer como **kanji dominante o número de panel** a escala monumental (no solo como counter chiquito).
+- **`--cyan` SOLO en chars glitched / scrambled words** (split RGB). Nunca como UI standalone (no botones cyan, no links cyan, no borders cyan).
+- `--bone` sigue siendo el texto neutro sobre cualquier fondo.
+- Los hints sutiles (status corner, hash, scan-grid) siguen en `--bone-dim` / `--ash`.
+
+**Anti-uso (no repetir Iteración A)**:
+- Rojo SOLO como counter/hash-value chiquito → diluye el acento.
+- Cyan como decoración fría → rompe la regla, queda gamer.
+- Mezclar ember + cyan + bone como tres acentos cromáticos → cyan es split-only.
+
+### 2.2 Tipografía — 4 familias con roles separados
+
+Cambio vs versión anterior (3 → 4): el display sans condensed entra como **manifesto**, Cormorant baja a body italic / quote.
+
+1. **Display manifesto (sans condensed bold)**: `Bebas Neue` (Google Fonts) — para H1 / H2 brutalistas, taglines manifesto, números de panel monumentales. Uppercase, tracking 0.02em, weight 400 (la única que tiene).
+2. **Body / quote serif**: `Cormorant Garamond` (Google) — italic 400/500 para body, quote, drop cap, descripciones italic.
+3. **CJK / kanji**: `Shippori Mincho B1` (Google) — para kanji a escala monumental (`狐`, `面`, `東京`).
+4. **Mono / data**: `JetBrains Mono` (Google) — coords, hash, block, status corner, ambient scrambled letters, marquee.
+
+**Reglas de rol**:
+- **H1 hero / H2 closing**: Bebas uppercase, clamp(4rem, 12vw, 12rem), letter-spacing -0.01em, line-height 0.9.
+- **H2 sección**: Bebas uppercase, clamp(2.5rem, 5vw, 4.5rem).
+- **Cormorant italic**: bajadas, descripciones italic, drop cap, quote.
+- **Bebas + Cormorant juntos en mismo bloque**: solo si Cormorant queda como subtítulo italic debajo de Bebas (jerarquía clara).
+- **Kanji Shippori**: nunca chiquito como decoración esquinera. O grande (escala monumental) o no aparece.
+
+### 2.2.1 Tipografía-as-experience · scrambled words
+- Frase clave del proyecto se descompone en chars con orden alterado y se "descifra" en scroll:
+  - estado glitched: `OBSURVADO · ASIGNAVD · DEVUTLO` (chars swap)
+  - estado claro: `OBSERVADO · ASIGNADO · DEVUELTO`
+- Implementación: GSAP scrub o IntersectionObserver con scramble JS.
+- Color: chars glitched en `--cyan`, chars stable en `--bone` o `--ember` según contexto.
 
 ### 2.2 Tipografía
 
