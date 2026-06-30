@@ -27,31 +27,31 @@
     --font-mono: "IBM Plex Mono", ui-monospace, "Courier New", monospace;
     --font-cjk: "Shippori Mincho B1", "Yu Mincho", serif;
 
-    /* escala tipográfica · R24 */
-    --text-display-xl: clamp(3.5rem, 11vw, 14rem);
-    --text-display-lg: clamp(2.75rem, 8vw, 7.5rem);
-    --text-display-md: clamp(1.75rem, 3.4vw, 4rem);
-    --text-display-sm: clamp(1.25rem, 1.8vw, 2rem);
-    --text-body-lg: clamp(1.05rem, 1.2vw, 1.25rem);
-    --text-body: clamp(0.95rem, 1.05vw, 1.125rem);
-    --text-body-sm: clamp(0.85rem, 0.95vw, 1rem);
-    --text-mono: clamp(0.95rem, 1.1vw, 1.2rem);
-    --text-mono-sm: clamp(0.85rem, 0.95vw, 1.05rem);
-    --text-mono-xs: clamp(0.78rem, 0.85vw, 0.95rem);
-    --text-kanji-monumental: clamp(8rem, 28vw, 28rem);
-    --text-kanji-corner: clamp(6rem, 14vw, 14rem);
-    --text-kanji-inline: clamp(2rem, 3vw, 3rem);
+    /* escala tipográfica · R24 — recalibrada · pisos y vw más conservadores */
+    --text-display-xl: clamp(2.5rem, 8vw, 10rem);
+    --text-display-lg: clamp(2rem, 5.5vw, 5.5rem);
+    --text-display-md: clamp(1.5rem, 2.8vw, 3.25rem);
+    --text-display-sm: clamp(1.15rem, 1.5vw, 1.65rem);
+    --text-body-lg: clamp(1rem, 1.05vw, 1.18rem);
+    --text-body: clamp(0.92rem, 0.95vw, 1.08rem);
+    --text-body-sm: clamp(0.82rem, 0.85vw, 0.98rem);
+    --text-mono: clamp(0.88rem, 0.95vw, 1.08rem);
+    --text-mono-sm: clamp(0.78rem, 0.85vw, 0.98rem);
+    --text-mono-xs: clamp(0.72rem, 0.75vw, 0.88rem);
+    --text-kanji-monumental: clamp(7rem, 22vw, 22rem);
+    --text-kanji-corner: clamp(5rem, 11vw, 11rem);
+    --text-kanji-inline: clamp(1.75rem, 2.6vw, 2.75rem);
 
-    /* espaciado fluido */
+    /* espaciado fluido — pisos más bajos para mobile */
     --space-3xs: clamp(0.25rem, 0.5vw, 0.5rem);
     --space-2xs: clamp(0.5rem, 0.8vw, 0.75rem);
     --space-xs: clamp(0.75rem, 1.2vw, 1rem);
     --space-sm: clamp(1rem, 1.6vw, 1.5rem);
-    --space-md: clamp(1.5rem, 2.5vw, 2.5rem);
-    --space-lg: clamp(2.5rem, 4vw, 4rem);
-    --space-xl: clamp(4rem, 7vw, 7rem);
-    --space-2xl: clamp(6rem, 10vw, 10rem);
-    --space-3xl: clamp(8rem, 13vw, 13rem);
+    --space-md: clamp(1.25rem, 2.2vw, 2.25rem);
+    --space-lg: clamp(2rem, 3.5vw, 3.5rem);
+    --space-xl: clamp(3rem, 5.5vw, 5.5rem);
+    --space-2xl: clamp(4rem, 8vw, 8rem);
+    --space-3xl: clamp(5rem, 10vw, 10rem);
 
     /* easings + duraciones · R47-48 */
     --ease-cinema: cubic-bezier(0.65, 0, 0.35, 1);
@@ -114,10 +114,12 @@ a {
 
 /* ==========================================================================
    FOCUS VISIBLE · R11 / R73
+   bone como outline universal — pasa 3:1 sobre ember y 14:1 sobre ink
+   (ember anterior se perdía sobre fondo ember; box-shadow clippea con overflow)
    ========================================================================== */
 :focus-visible {
-    outline: 2px solid var(--color-ember);
-    outline-offset: 4px;
+    outline: 3px solid var(--color-bone);
+    outline-offset: 2px;
 }
 
 /* ==========================================================================
@@ -434,9 +436,12 @@ a {
     font-size: var(--text-mono-sm);
     text-transform: uppercase;
     letter-spacing: 0.06em;
+    white-space: nowrap;
+    flex-shrink: 0;
     transition: background var(--duration-hover) var(--ease-cinema),
                 color var(--duration-hover) var(--ease-cinema);
 }
+.site-header__cart-label { white-space: nowrap; }
 .site-header__cart:hover { background: var(--color-ember); color: var(--color-ink); }
 .site-header__cart svg { width: 14px; height: 14px; }
 
@@ -528,9 +533,12 @@ a {
     padding: 0.85em 1.6em;
     font-family: var(--font-mono);
     font-size: var(--text-mono);
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: var(--color-ember);
+    --cta-color: var(--color-ember);
+    --cta-invert: var(--color-ink);
+    color: var(--cta-color);
     position: relative;
     isolation: isolate;
     transition: color var(--duration-hover) var(--ease-cinema),
@@ -555,18 +563,15 @@ a {
 .bracket-cta:focus-visible .bracket-cta__arrow { transform: translateX(4px); }
 .bracket-cta:hover,
 .bracket-cta:focus-visible {
-    background-color: currentColor;
+    background-color: var(--cta-color);
+    color: var(--cta-invert);
 }
-.bracket-cta:hover > *,
-.bracket-cta:focus-visible > * {
-    mix-blend-mode: difference;
-}
-.bracket-cta--ink   { color: var(--color-ink); }
-.bracket-cta--ember { color: var(--color-ember); }
-.bracket-cta--bone  { color: var(--color-bone); }
+.bracket-cta--ink   { --cta-color: var(--color-ink);   --cta-invert: var(--color-bone); }
+.bracket-cta--ember { --cta-color: var(--color-ember); --cta-invert: var(--color-ink);  }
+.bracket-cta--bone  { --cta-color: var(--color-bone);  --cta-invert: var(--color-ink);  }
 .bracket-cta[aria-disabled="true"],
 .bracket-cta.is-disabled {
-    opacity: 0.4;
+    opacity: 0.55;
     pointer-events: none;
     cursor: not-allowed;
 }
@@ -728,15 +733,17 @@ a {
     background: rgba(10, 12, 18, 0.7);
 }
 .cart-drawer__close {
-    color: var(--color-bone-dim);
+    color: var(--color-bone);
     font-family: var(--font-mono);
     font-size: var(--text-mono-sm);
     text-transform: uppercase;
     letter-spacing: 0.06em;
     align-self: flex-end;
-    transition: color var(--duration-hover) var(--ease-cinema);
+    padding: 0.5rem 0.75rem;
+    transition: color var(--duration-hover) var(--ease-cinema),
+                background-color var(--duration-hover) var(--ease-cinema);
 }
-.cart-drawer__close:hover { color: var(--color-ember); }
+.cart-drawer__close:hover { color: var(--color-ink); background-color: var(--color-ember); }
 
 /* ==========================================================================
    GLOW DOMINANT COLOR · R10
@@ -2359,7 +2366,7 @@ a {
 }
 .hero__h1 {
     font-family: var(--font-display);
-    font-size: clamp(3rem, 11.8vw, 16rem);
+    font-size: clamp(2.5rem, 8.5vw, 10rem);
     line-height: 0.86;
     letter-spacing: -0.025em;
     text-transform: uppercase;
@@ -2368,7 +2375,7 @@ a {
     margin: 0;
     display: flex;
     flex-wrap: wrap;
-    column-gap: clamp(0.5rem, 1.6vw, 2rem);
+    column-gap: clamp(0.5rem, 1.4vw, 1.5rem);
     row-gap: 0;
     align-items: baseline;
 }
@@ -2415,13 +2422,15 @@ a {
 }
 .hero__tagline {
     font-family: var(--font-display);
-    font-size: clamp(2rem, 5.4vw, 5.6rem);
-    line-height: 0.92;
+    font-size: clamp(1.6rem, 3.8vw, 3.6rem);
+    line-height: 0.95;
     letter-spacing: -0.018em;
     text-transform: uppercase;
     color: var(--color-ink);
     font-weight: 900;
     margin: 0;
+    overflow-wrap: break-word;
+    hyphens: none;
 }
 .hero__tagline-line { display: block; }
 .hero__tagline-dot {
@@ -2480,14 +2489,14 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: clamp(1rem, 2vw, 2rem);
+    padding: clamp(0.75rem, 1.5vw, 1.5rem);
     position: relative;
     overflow: hidden;
-    min-height: clamp(360px, 56vh, 720px);
+    min-height: clamp(220px, 38vh, 480px);
 }
 .hero__portrait-img {
     max-width: 100%;
-    max-height: clamp(360px, 60vh, 760px);
+    max-height: clamp(220px, 42vh, 520px);
     width: auto;
     height: auto;
     object-fit: contain;
@@ -2550,6 +2559,38 @@ a {
     color: var(--color-ink);
     border-top: 1px solid var(--color-ink);
     border-bottom: 0;
+}
+
+/* ==========================================================================
+   RESPONSIVE FIXES · viewports < 768px
+   layout-only (tipografías ya van por tokens globales recalibrados)
+   ========================================================================== */
+@media (max-width: 767px) {
+    /* Hero · padding lateral más justo y H1 apilado vertical */
+    .hero__masthead,
+    .hero__status-bar,
+    .hero__bottom {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    .hero__col { padding: 1.1rem 1rem; }
+    .hero__h1 {
+        flex-direction: column;
+        column-gap: 0;
+        row-gap: 0.04em;
+        line-height: 0.9;
+    }
+    .hero__h1-outline { -webkit-text-stroke-width: 1.5px; }
+
+    /* Anti-overflow general para titulares largos */
+    .hero__h1,
+    .hero__tagline,
+    .featured-mask__name,
+    .closing__title,
+    .wall__title,
+    .district-map__title,
+    .last-tx__title,
+    .feed-tx__title { overflow-wrap: break-word; }
 }
 
 /* ==========================================================================
