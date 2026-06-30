@@ -4,7 +4,39 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * Class Product
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $slug
+ * @property string $code
+ * @property string $category
+ * @property string $rarity
+ * @property string $district
+ * @property int $price
+ * @property string $short_description
+ * @property string $long_description
+ * @property string $dominant_color
+ * @property string $status
+ * @property int $signal_level
+ * @property int $agility
+ * @property int $spirit
+ * @property int $ferocity
+ * @property string|null $image_path
+ * @property bool $is_featured
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Reservation> $reservations
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
+ *
+ * @method static Builder|Product featured()
+ * @method static Builder|Product available()
+ * @method static Builder|Product byFilter(?string $filter)
+ */
 class Product extends Model
 {
     public const STATUS_AVAILABLE = 'disponible';
@@ -40,21 +72,45 @@ class Product extends Model
         'ferocity' => 'integer',
     ];
 
+    /**
+     * Obtener el nombre del campo para las rutas de Eloquent.
+     *
+     * @return string
+     */
     public function getRouteKeyName(): string
     {
         return 'slug';
     }
 
+    /**
+     * Scope para filtrar productos destacados.
+     *
+     * @param Builder $query
+     * @return Builder
+     */
     public function scopeFeatured(Builder $query): Builder
     {
         return $query->where('is_featured', true);
     }
 
+    /**
+     * Scope para filtrar productos disponibles.
+     *
+     * @param Builder $query
+     * @return Builder
+     */
     public function scopeAvailable(Builder $query): Builder
     {
         return $query->where('status', self::STATUS_AVAILABLE);
     }
 
+    /**
+     * Scope para filtrar productos por categoría/filtro.
+     *
+     * @param Builder $query
+     * @param string|null $filter
+     * @return Builder
+     */
     public function scopeByFilter(Builder $query, ?string $filter): Builder
     {
         return match ($filter) {
@@ -67,11 +123,21 @@ class Product extends Model
         };
     }
 
+    /**
+     * Verificar si está disponible.
+     *
+     * @return bool
+     */
     public function isAvailable(): bool
     {
         return $this->status === self::STATUS_AVAILABLE;
     }
 
+    /**
+     * Verificar si tiene imagen.
+     *
+     * @return bool
+     */
     public function hasImage(): bool
     {
         return $this->image_path !== null
@@ -79,16 +145,31 @@ class Product extends Model
             && file_exists(public_path($this->image_path));
     }
 
+    /**
+     * Obtener el precio formateado.
+     *
+     * @return string
+     */
     public function formattedPrice(): string
     {
         return '$' . number_format($this->price, 0, ',', '.');
     }
 
+    /**
+     * Obtener la etiqueta de rareza.
+     *
+     * @return string
+     */
     public function rarityLabel(): string
     {
         return $this->rarity;
     }
 
+    /**
+     * Obtener la etiqueta de estado.
+     *
+     * @return string
+     */
     public function statusLabel(): string
     {
         return match ($this->status) {
@@ -99,6 +180,11 @@ class Product extends Model
         };
     }
 
+    /**
+     * Obtener el estilo de color dominante.
+     *
+     * @return string
+     */
     public function dominantColorStyle(): string
     {
         $palette = [
@@ -113,5 +199,27 @@ class Product extends Model
         $hex = $palette[$this->dominant_color] ?? '#737373';
 
         return "background-color: {$hex};";
+    }
+
+    /**
+     * Obtener las reservas de esta máscara.
+     *
+     * @return HasMany<Reservation>
+     */
+    public function reservations(): HasMany
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
+    /**
+     * Obtener los usuarios que reservaron esta máscara.
+     *
+     * @return BelongsToMany<User>
+     */
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'reservations', 'product_id', 'user_id')
+            ->withPivot('status', 'created_at')
+            ->withTimestamps();
     }
 }

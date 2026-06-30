@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('reading_time')->default(0);
             $table->string('cover_tone')->default('neutral');
             $table->boolean('is_featured')->default(false);
+            $table->string('image_path')->nullable();
             $table->timestamps();
         });
     }

@@ -41,16 +41,40 @@
                     <span>precio<strong>{{ $product->formattedPrice() }}</strong></span>
                 </div>
 
-                <div class="product-hero__cta-row">
-                    <a href="#accion"
-                       class="bracket-cta bracket-cta--ember {{ $isAvailable ? '' : 'is-disabled' }}"
-                       @if(!$isAvailable) aria-disabled="true" @endif>
-                        <span aria-hidden="true">[</span>
-                        <span class="bracket-cta__text">&gt;_ {{ $isAvailable ? 'RESERVAR' : strtoupper($product->statusLabel()) }}</span>
-                        <span aria-hidden="true">]</span>
-                        <span class="bracket-cta__arrow" aria-hidden="true">→</span>
-                    </a>
-                    <span class="product-hero__microcopy">el carrito se abre en la próxima fase del circuito.</span>
+                <div class="product-header__acquisition">
+                    <div class="product-header__price" aria-label="Precio del producto">
+                        <span class="product-header__price-tag">{{ $product->formattedPrice() }}</span>
+                        <span class="product-header__price-curr">CRÉDITOS</span>
+                    </div>
+                    <div class="product-header__actions">
+                        @auth
+                            @if($isAvailable)
+                                <form action="{{ route('products.reserve', $product->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="bracket-cta bracket-cta--cyan" style="background: none; border: none; cursor: pointer; width: 100%; justify-content: space-between;">
+                                        <span aria-hidden="true">[</span>
+                                        <span class="bracket-cta__text">&gt;_ RESERVAR MÁSCARA</span>
+                                        <span aria-hidden="true">]</span>
+                                        <span class="bracket-cta__arrow" aria-hidden="true">→</span>
+                                    </button>
+                                </form>
+                            @else
+                                <button type="button" class="bracket-cta bracket-cta--neutral" disabled style="background: none; border: none; cursor: not-allowed; width: 100%; justify-content: space-between; opacity: 0.5;">
+                                    <span aria-hidden="true">[</span>
+                                    <span class="bracket-cta__text">MÁSCARA {{ strtoupper($product->status) }}</span>
+                                    <span aria-hidden="true">]</span>
+                                </button>
+                            @endif
+                        @else
+                            <a href="{{ route('auth.login') }}" class="bracket-cta bracket-cta--ember" style="text-decoration: none; width: 100%; justify-content: space-between;">
+                                <span aria-hidden="true">[</span>
+                                <span class="bracket-cta__text">INGRESAR PARA RESERVAR</span>
+                                <span aria-hidden="true">]</span>
+                                <span class="bracket-cta__arrow" aria-hidden="true">→</span>
+                            </a>
+                        @endauth
+                        <div class="product-hero__microcopy">Al reservar, se asigna una señal cifrada única en el circuito.</div>
+                    </div>
                 </div>
             </div>
 
@@ -127,14 +151,33 @@
             @endif
         </p>
         <div class="product-action__cta">
-            <a href="#"
-               class="bracket-cta bracket-cta--ink {{ $isAvailable ? '' : 'is-disabled' }}"
-               @if(!$isAvailable) aria-disabled="true" tabindex="-1" @endif>
-                <span aria-hidden="true">[</span>
-                <span class="bracket-cta__text">&gt;_ {{ $isAvailable ? 'RESERVAR' : 'NO DISPONIBLE' }}</span>
-                <span aria-hidden="true">]</span>
-                <span class="bracket-cta__arrow" aria-hidden="true">→</span>
-            </a>
+            @auth
+                @if($isAvailable)
+                    <form action="{{ route('products.reserve', $product->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="bracket-cta bracket-cta--ink" style="background: none; border: none; cursor: pointer;">
+                            <span aria-hidden="true">[</span>
+                            <span class="bracket-cta__text">&gt;_ RESERVAR MÁSCARA</span>
+                            <span aria-hidden="true">]</span>
+                            <span class="bracket-cta__arrow" aria-hidden="true">→</span>
+                        </button>
+                    </form>
+                @else
+                    <button type="button" class="bracket-cta bracket-cta--ink is-disabled" disabled aria-disabled="true" tabindex="-1" style="background: none; border: none; cursor: not-allowed; opacity: 0.5;">
+                        <span aria-hidden="true">[</span>
+                        <span class="bracket-cta__text">&gt;_ NO DISPONIBLE</span>
+                        <span aria-hidden="true">]</span>
+                        <span class="bracket-cta__arrow" aria-hidden="true">→</span>
+                    </button>
+                @endif
+            @else
+                <a href="{{ route('auth.login') }}" class="bracket-cta bracket-cta--ink">
+                    <span aria-hidden="true">[</span>
+                    <span class="bracket-cta__text">&gt;_ INGRESAR PARA RESERVAR</span>
+                    <span aria-hidden="true">]</span>
+                    <span class="bracket-cta__arrow" aria-hidden="true">→</span>
+                </a>
+            @endauth
         </div>
         <p class="product-action__microcopy">el carrito se abre en la próxima fase del circuito.</p>
         <a href="{{ route('products.index') }}" class="product-action__back">← VOLVER AL ARCHIVO</a>
