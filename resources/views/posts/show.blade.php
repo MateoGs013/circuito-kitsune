@@ -26,6 +26,12 @@
 
             <blockquote class="post-article__pull">{{ $post->excerpt }}</blockquote>
 
+            @if ($post->hasImage())
+                <div class="post-detail__media" style="margin: 2rem 0; border: 1px solid var(--color-zinc-800);">
+                    <img src="{{ asset('storage/' . $post->image_path) }}" alt="{{ $post->title }}" style="width: 100%; height: auto; display: block;">
+                </div>
+            @endif
+
             <div class="post-article__body">
                 @forelse($bodyParagraphs as $paragraph)
                     <p>{{ $paragraph }}</p>
