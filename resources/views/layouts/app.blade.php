@@ -22,12 +22,6 @@
 </head>
 @php
     $cartItems = auth()->check() ? auth()->user()->products()->wherePivot('status', 'activa')->get() : collect();
-    $cartItemsJson = $cartItems->map(function($item) {
-        return [
-            'id' => $item->id,
-            'code' => $item->code,
-            'name' => $item->name,
-            'price' => $item->price,
     $cartTotal = $cartItems->sum('price');
 @endphp
 <body x-data="{ cartOpen: {{ session()->has('cartOpen') ? 'true' : 'false' }} }">
