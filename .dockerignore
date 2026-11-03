@@ -1,0 +1,16 @@
+.git
+node_modules
+vendor
+.env
+database/database.sqlite
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+public/build
+public/storage
+.editorconfig
+README.md
+datos.txt
+tests
+phpunit.xml
